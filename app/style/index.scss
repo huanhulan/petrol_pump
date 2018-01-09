@@ -16,9 +16,7 @@ body,
   display: grid;
   grid-template-columns: 35% 1fr;
   grid-template-rows: auto 1fr;
-  grid-template-areas:
-    "header header"
-    "keypad pump";
+  grid-template-areas: "header header" "keypad pump";
 
   .header {
     grid-area: header;

@@ -25,7 +25,11 @@ module.exports = function (cssLoaderOptions, sassLoaderOptions) {
           use: [{
             loader: "typings-for-css-modules-loader",
             options: cssLoaderOptions
-          }, {
+          },{
+            loader: "postcss-loader", options: {
+                sourceMap: true
+            }
+        }, {
             loader: "sass-loader",
             options: sassLoaderOptions
           }]
