@@ -4,7 +4,7 @@
   "description": "petro-pump example for frp",
   "main": "index.js",
   "scripts": {
-    "start": "node build/server.js",
+    "start": "nodemon --watch webpack.config.js --exec \"webpack-dev-server --config ./build/webpack.dev.js\"",
     "lint": "tslint --config tslint.json --project tsconfig.json",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
