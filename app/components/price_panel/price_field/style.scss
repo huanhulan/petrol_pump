@@ -1,0 +1,39 @@
+@import "./../../../style/constants";
+
+.price_container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  color: $light-black;
+
+  .price_container__input {
+    margin-left: 5px;
+    flex-grow: 1;
+    background-color: $lightest-black;
+    border: 1px solid $light-black;
+    border-right: 0;
+    box-shadow: 0 0 .5rem rgba(0, 0, 0, .45);
+    border-radius: 5px;
+    overflow: hidden;
+    height: 1.5em;
+    padding: .15em .15em .15em .5em;
+    transition: .5s ease all;
+    -moz-appearance: textfield;
+    &:focus, &:active {
+      background-color: rgba(255, 255, 255, 1);
+      box-shadow: 0 0 1rem rgba(0, 0, 0, .75);
+      outline: none;
+      transition: .5s ease all;
+    }
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  }
+}
+
+.price_container + .price_container {
+  margin-left: 15px;
+}
