@@ -46,8 +46,14 @@
     "@types/react": "^16.0.34",
     "@types/react-dom": "^16.0.3",
     "babel-eslint": "^8.2.1",
+    "commitizen": "^2.9.6",
     "css-object-loader": "^0.0.7",
     "typings-for-css-modules-loader": "^1.7.0",
     "webpack-merge": "^4.1.1"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
   }
 }
