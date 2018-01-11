@@ -1,0 +1,10 @@
+@import "./../../style/constants";
+
+.LCD-container {
+  .LCD-panel {
+    background: $lcd-background;
+    border: 1px solid $dark-black;
+    border-radius: 10px;
+    width: 100%;
+  }
+}

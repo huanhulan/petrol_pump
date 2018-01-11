@@ -1,12 +1,22 @@
 @import "~node.normalize.scss/_normalize.scss";
+@import "./constants.scss";
+
+:root {
+  --font-size: $font-size;
+  --padding: $padding;
+  --line-height: $line-height;
+  --header-height: $line-height*$font-size;
+  --logo-ratio: $logo-size;
+  --background-size: calc((100vw - (var(--padding) * 2)) * var(--logo-ratio));
+}
 
 * {
   box-sizing: border-box;
 }
 
 body {
-  font-size: 16px;
-  line-height: 1.5;
+  font-size: var(--font-size);
+  line-height: var(--line-height);
 }
 
 html,
@@ -18,10 +28,22 @@ body,
 }
 
 .app {
+  padding: var(--padding);
   display: grid;
   grid-template-columns: 35% 1fr;
   grid-template-rows: auto 1fr;
   grid-template-areas: "header header" "keypad pump";
+  background-image: url($logo);
+  background-position: var(--padding) calc(var(--header-height) + var(--padding) * 2);
+  background-repeat: no-repeat;
+  background-size: var(--background-size);
+  @media screen and (max-width: 1024px) {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr 1fr;
+    grid-template-areas: "header" "keypad" "pump";
+    background-image: url($logo);
+    background-position: 100% 100%;
+  }
 
   .header {
     grid-area: header;

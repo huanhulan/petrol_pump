@@ -4,6 +4,7 @@
   "description": "petro-pump example for frp",
   "main": "index.js",
   "scripts": {
+    "build": "webpack --config webpack.prod.js",
     "start": "nodemon --watch webpack.config.js --exec \"webpack-dev-server --config ./build/webpack.dev.js\"",
     "lint": "tslint --config tslint.json --project tsconfig.json",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -46,6 +47,7 @@
     "@types/react": "^16.0.34",
     "@types/react-dom": "^16.0.3",
     "babel-eslint": "^8.2.1",
+    "clean-webpack-plugin": "^0.1.17",
     "commitizen": "^2.9.6",
     "css-object-loader": "^0.0.7",
     "typings-for-css-modules-loader": "^1.7.0",

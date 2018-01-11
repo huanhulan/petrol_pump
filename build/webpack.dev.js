@@ -18,11 +18,13 @@ const sassLoaderOptions = {
 
 module.exports = merge(common(cssLoaderOptions, sassLoaderOptions), {
     devServer: {
+        hotOnly: true,
         compress: true,
         port: 3000
     },
 
     plugins: [
+        new webpack.HotModuleReplacementPlugin(),
         new webpack.WatchIgnorePlugin([
             /css\.d\.ts$/
         ]),

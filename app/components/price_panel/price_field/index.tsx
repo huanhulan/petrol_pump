@@ -16,12 +16,17 @@ class PriceField extends React.Component<PricePropsInterface,PriceStateInterface
         };
     }
 
+    componentDidMount() {
+        this.props.cPrice.listen(v => this.setState({price: v}));
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        return !(nextState.price === this.state.price);
+    }
+
     onChange(e) {
         let newPrice = parseDbl(e.target.value);
 
-        this.setState({
-            price: newPrice
-        });
         return this.props.cPrice.send(newPrice);
     };
 
@@ -30,7 +35,7 @@ class PriceField extends React.Component<PricePropsInterface,PriceStateInterface
             <div className={style['price_container']}>
                 <label>{this.props.name}</label>
                 <input className={style['price_container__input']}
-                       type="number"
+                       type="text"
                        value={this.state.price}
                        onChange={this.onChange.bind(this)}
                        autoComplete="off"/>
