@@ -39,7 +39,7 @@ body,
   display: grid;
   grid-template-columns: 35% 1fr;
   grid-template-rows: auto 1fr;
-  grid-template-areas: "header header" "keypad pump";
+  grid-template-areas: "header header" "input pump";
   background-image: url($logo);
   background-position: var(--padding) calc(var(--header-height) + var(--padding) * 2);
   background-repeat: no-repeat;
@@ -47,7 +47,7 @@ body,
   @media screen and (max-width: $tablet-width) {
     grid-template-columns: 1fr;
     grid-template-rows: auto 1fr 1fr;
-    grid-template-areas: "header" "keypad" "pump";
+    grid-template-areas: "header" "input" "pump";
     background-image: url($logo);
     background-position: 100% 100%;
   }
@@ -55,7 +55,7 @@ body,
   .header {
     grid-area: header;
   }
-  .keypad {
+  .input {
     grid-area: keypad;
   }
   .pump {

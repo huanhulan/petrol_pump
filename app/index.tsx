@@ -1,6 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import * as style from "./style/index.scss";
+import getLCDStr from './lib/getLCDStr';
 import {PricePanel} from './components/price_panel';
 import {NozzlePanel} from './components/nozzle_panel';
 import LCD from './components/LCD';
@@ -44,11 +45,12 @@ class App extends React.Component<{},{}> {
                 <div className={style.header}>
                     <PricePanel prices={prices}/>
                 </div>
-                <div className={style.keypad}/>
+                <div className={style.input}/>
                 <div className={style.pump}>
                     <LCD cPresetLCD={cTestLCDPreset} name="dollars"/>
                     <LCD cPresetLCD={cTestLCDPreset} name="liters"/>
-                    <NozzlePanel cPriceLCDs={cPriceArr.map(cell => cell.map(v => v.toString()))} ref="NozzlePanel"/>
+                    <NozzlePanel cPriceLCDs={cPriceArr.map(cell => cell.map(v => getLCDStr(v,4)))}
+                                 ref="NozzlePanel"/>
                 </div>
             </div>
         );

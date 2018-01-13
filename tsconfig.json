@@ -18,8 +18,8 @@
     "lib": [
       "ES5",
       "ES6",
-      "DOM",
-      "DOM.Iterable"
+      "ES2015.Core",
+      "DOM"
     ]
   },
   "exclude": [
