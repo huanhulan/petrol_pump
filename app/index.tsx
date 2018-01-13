@@ -42,7 +42,7 @@ class App extends React.Component<{},{}> {
         return (
             <div className={style.app}>
                 <div className={style.header}>
-                    <PricePanel price={prices}/>
+                    <PricePanel prices={prices}/>
                 </div>
                 <div className={style.keypad}/>
                 <div className={style.pump}>
