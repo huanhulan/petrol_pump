@@ -1,10 +1,15 @@
 @import "./../../style/constants";
 
 .LCD-container {
+  margin-top: $padding;
   .LCD-panel {
     background: $lcd-background;
     border: 1px solid $dark-black;
     border-radius: 10px;
     width: 100%;
+  }
+  .LCD-title {
+    margin-top: $padding/3;
+    text-align: center;
   }
 }

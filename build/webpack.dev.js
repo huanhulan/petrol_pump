@@ -18,7 +18,7 @@ const sassLoaderOptions = {
 
 module.exports = merge(common(cssLoaderOptions, sassLoaderOptions), {
     devServer: {
-        hotOnly: true,
+        // hotOnly: true,
         compress: true,
         port: 3000
     },

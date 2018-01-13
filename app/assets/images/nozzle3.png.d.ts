@@ -1,0 +1,1 @@
+export const nozzle3PNG: string;

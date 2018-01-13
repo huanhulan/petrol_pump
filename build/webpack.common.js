@@ -12,7 +12,7 @@ module.exports = function (cssLoaderOptions, sassLoaderOptions) {
         },
 
         resolve: {
-            extensions: [".ts", ".tsx", ".js", ".json"]
+            extensions: [".ts", ".tsx", ".js", ".json", "png"]
         },
 
         module: {
@@ -40,8 +40,6 @@ module.exports = function (cssLoaderOptions, sassLoaderOptions) {
                     loader: "file-loader",
                     options: {
                         name: "[hash].[ext]",
-                        outputPath: "images/",
-                        publicPath: "../"
                     }
                 }, {
                     loader: "image-webpack-loader"

@@ -1,4 +1,8 @@
-interface digitProps {
-    val: 0|1|2|3|4|5|6|7|8|9
+interface svgPropsInterface {
+    x: number,
+    y: number
 }
-export default digitProps
+interface digitPropsInterface extends svgPropsInterface {
+    val: number
+}
+export  {svgPropsInterface, digitPropsInterface}

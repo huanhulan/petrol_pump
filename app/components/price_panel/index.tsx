@@ -27,7 +27,7 @@ const cPriceArr = prices.map(price => price.cPrice);
 
 function PricePanel() {
     return (
-        <div className={style['price_panel']}>
+        <div className={style['price-panel']}>
             {prices.map(
                 ({name, price, cPrice}, index) => (
                     <PriceField

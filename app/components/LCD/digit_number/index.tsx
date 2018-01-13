@@ -1,8 +1,8 @@
 import * as React from "react";
-import digitProps from './interface';
+import {svgPropsInterface, digitPropsInterface} from './interface';
 import * as style from './style.scss';
 
-export default function DigitNumber(props: digitProps) {
+function DigitNumber(props: digitPropsInterface) {
     const digits = [
         [1, 1, 1, 0, 1, 1, 1],
         [1, 0, 0, 0, 1, 0, 0],
@@ -26,17 +26,39 @@ export default function DigitNumber(props: digitProps) {
     ];
 
     const isDigitOn = (index) => {
-        return digits[props.val][index] ? style['dots-on'] : style['dots-off'];
+        return digits[props.val] && digits[props.val][index]
+            ? style['dots-on']
+            : style['dots-off'];
     };
 
     return (
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 88">
-            <g id="digit">
-                {points.map((points, index) => (<polygon
+        <svg xmlns="http://www.w3.org/2000/svg"
+             viewBox="0 0 48 88"
+             width="48px"
+             height="88px"
+             x={`${props.x}px`}
+             y={`${props.y}px`}>
+            {points.map((point, index) => {
+                return (<polygon
                     key={index}
                     className={isDigitOn(index)}
-                    points="48 38 44 42 40 38 40 10 44 6 48 10 48 38"/>))}
-            </g>
+                    points={points[index]}/>)
+            })}
         </svg>
     )
 }
+
+function Dot(props: svgPropsInterface) {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg"
+             width="8px"
+             height="8px"
+             x={`${props.x}px`}
+             y={`${props.y}px`}
+             viewBox="0 0 8 8">
+            <circle cx="4" cy="4" r="4" className={style['dots-on']}/>
+        </svg>
+    )
+}
+
+export {Dot, DigitNumber}

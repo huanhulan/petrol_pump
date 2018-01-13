@@ -1,0 +1,22 @@
+@import "./../../../style/constants";
+
+.nozzle {
+  .nozzle-button {
+    border: none;
+    background: none;
+    display: block;
+    width: 60%;
+    margin-left: 20%;
+    transition: transform .5s ease-in;
+    .nozzle-img {
+      margin-top: $padding*2;
+      width: 100%;
+    }
+    &:focus {
+      outline: none;
+    }
+  }
+  .lifed {
+    transform: translateY(-$padding*2);
+  }
+}

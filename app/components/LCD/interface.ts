@@ -1,7 +1,7 @@
 import {Cell} from 'sodiumjs';
 
 interface LCDPropsInterface {
-    cPresetLCD: Cell<number>,
+    cPresetLCD: Cell<string>,
     name: string
 }
 interface LCDState {
