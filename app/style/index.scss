@@ -28,11 +28,15 @@ body,
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
+}
+
+#viewport {
+  overflow: scroll;
 }
 
 .app {
-  height: 100%;
+  min-height: 100%;
   min-width: $tablet-width;
   width: 80vw;
   max-width: $L-laptop-width;
@@ -52,6 +56,9 @@ body,
     background-image: url($logo);
     background-position: 100% 100%;
   }
+  @media screen and (min-width: $L-laptop-width) {
+    background-size: $L-laptop-width*$logo-size;
+  }
 
   .header {
     grid-area: header;
@@ -61,6 +68,9 @@ body,
     grid-area: input;
     @media screen and (max-width: $tablet-width) {
       padding: 0;
+    }
+    @media screen and (min-width: $L-laptop-width) {
+      padding-top: $L-laptop-width/10;
     }
   }
   .pump {

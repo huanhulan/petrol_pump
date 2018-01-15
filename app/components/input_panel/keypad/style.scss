@@ -48,5 +48,9 @@
     @media screen and (max-width: $tablet-width) {
       font-size: 10vw;
     }
+
+    @media screen and (min-width: $L-laptop-width) {
+      font-size: $L-laptop-width/$tablet-width*$font-size;
+    }
   }
 }
