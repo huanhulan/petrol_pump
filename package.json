@@ -17,6 +17,7 @@
   "author": "lex.huang",
   "license": "MIT",
   "dependencies": {
+    "@types/react-modal": "^3.1.1",
     "autoprefixer": "^7.2.4",
     "awesome-typescript-loader": "^3.4.1",
     "browserslist": "^2.11.0",

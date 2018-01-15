@@ -1,5 +1,6 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
+import * as ReactModal from 'react-modal';
 import {Cell, Stream, CellSink} from 'sodiumjs';
 import * as style from "./style/index.scss";
 import getLCDStr from './lib/getLCDStr';
