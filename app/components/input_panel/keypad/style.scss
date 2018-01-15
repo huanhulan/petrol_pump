@@ -1,9 +1,9 @@
 @import "./../../../style/constants";
 
 :root {
-  --tablet-width: $tablet-width;
-  --L-laptop-width: $L-laptop-width;
-  --font-size: $font-size;
+  --tablet-width: 768;
+  --L-laptop-width: 1448;
+  --font-size: 16;
 }
 
 .keypad {
@@ -14,7 +14,7 @@
   grid-gap: $padding/3 $padding/3;
 
   .button {
-    font-size: calc(((100vw - var(--tablet-width)) / (var(--L-laptop-width) - var(--tablet-width))) * var(--font-size));
+    font-size: calc(100vw / var(--tablet-width) * var(--font-size));
     font-weight: bolder;
     padding: 0;
     background: $keypad-background;
@@ -45,15 +45,8 @@
     &:last-child {
       grid-area: clear;
     }
-    .text {
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      width: $line-height*$font-size;
-      height: $line-height*$font-size;
-      line-height: $line-height;
+    @media screen and (max-width: $tablet-width) {
+      font-size: 10vw;
     }
   }
 }
