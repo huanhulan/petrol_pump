@@ -1,0 +1,59 @@
+@import "./../../../style/constants";
+
+:root {
+  --tablet-width: $tablet-width;
+  --L-laptop-width: $L-laptop-width;
+  --font-size: $font-size;
+}
+
+.keypad {
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-areas: "one two three" "four five six" "seven eight nine" "null zero clear";
+  grid-gap: $padding/3 $padding/3;
+
+  .button {
+    font-size: calc(((100vw - var(--tablet-width)) / (var(--L-laptop-width) - var(--tablet-width))) * var(--font-size));
+    font-weight: bolder;
+    padding: 0;
+    background: $keypad-background;
+    border: $bold-border-width solid $dark-black;
+    border-radius: 25%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    min-width: 2*$line-height*$font-size;
+    &:focus {
+      outline: none;
+    }
+    &::before {
+      content: "";
+      float: left;
+      padding-bottom: 100%;
+    }
+    &::after {
+      clear: left;
+      content: " ";
+      display: table;
+    }
+    &:nth-last-child(2) {
+      grid-area: zero;
+    }
+    &:last-child {
+      grid-area: clear;
+    }
+    .text {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      width: $line-height*$font-size;
+      height: $line-height*$font-size;
+      line-height: $line-height;
+    }
+  }
+}

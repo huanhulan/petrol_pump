@@ -6,12 +6,13 @@ function getLCDStr(num: number, len: number) {
         }
     } else {
         const tmp = num.toString();
-        const dotPos = tmp.indexOf('.');
+        let dotPos = tmp.indexOf('.');
         let tmpWithoutDot = tmp.split('').filter((str) => str !== '.');
         if (tmpWithoutDot.length >= len) {
             tmpWithoutDot = tmpWithoutDot.slice(0, len);
         } else {
-            const margin = len - tmpWithoutDot.length
+            const margin = len - tmpWithoutDot.length;
+            dotPos = tmpWithoutDot.length;
             for (let i = 0; i < margin; i++) {
                 tmpWithoutDot.push('0');
             }

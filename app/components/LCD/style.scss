@@ -4,7 +4,7 @@
   margin-top: $padding;
   .LCD-panel {
     background: $lcd-background;
-    border: 1px solid $dark-black;
+    border: $bold-border-width solid $dark-black;
     border-radius: 10px;
     width: 100%;
   }

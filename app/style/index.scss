@@ -6,8 +6,9 @@
   --padding: $padding;
   --line-height: $line-height;
   --header-height: $line-height*$font-size;
-  --logo-ratio: $logo-size;
-  --background-size: calc((100vw - (var(--padding) * 2)) * var(--logo-ratio));
+  --logo-size: $logo-size;
+  --logo-aspectRation: $logo-aspectRatio;
+  --background-size: calc((100vw - (var(--padding) * 2)) * var(--logo-size));
 }
 
 * {
@@ -56,7 +57,11 @@ body,
     grid-area: header;
   }
   .input {
-    grid-area: keypad;
+    padding: calc(var(--background-size) / var(--logo-aspectRation)) $padding 0;
+    grid-area: input;
+    @media screen and (max-width: $tablet-width) {
+      padding: 0;
+    }
   }
   .pump {
     grid-area: pump;

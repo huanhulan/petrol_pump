@@ -40,7 +40,7 @@ class NozzlePanel extends React.Component<nozzlePanelInterface,{}> {
             <div className={style['nozzle-panel']}>
                 {
                     nozzles.map(({name, src}, index) => (
-                        <div className={style['nozzle-container']}>
+                        <div className={style['nozzle-container']} key={index}>
                             <Nozzle
                                 name={name}
                                 src={src}

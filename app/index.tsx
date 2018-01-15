@@ -1,14 +1,13 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
+import {Cell, Stream, CellSink} from 'sodiumjs';
 import * as style from "./style/index.scss";
 import getLCDStr from './lib/getLCDStr';
 import {PricePanel} from './components/price_panel';
 import {NozzlePanel} from './components/nozzle_panel';
 import LCD from './components/LCD';
-import {Cell} from 'sodiumjs';
-import {CellSink} from 'sodiumjs';
+import InputPanel from './components/input_panel';
 
-const cTestLCDPreset = new Cell('12345678.09');
 const pricePropsFactory = ({name, price}) => {
     return {
         name,
@@ -16,7 +15,6 @@ const pricePropsFactory = ({name, price}) => {
         cPrice: new CellSink(price)
     }
 };
-
 const prices = [{
     name: 'price1',
     price: 2.149,
@@ -28,8 +26,9 @@ const prices = [{
     price: 1.499,
 }].map(conf => pricePropsFactory(conf));
 
+const cTestLCDPreset = new Cell('12345678.09');
 const cPriceArr = prices.map(price => price.cPrice);
-
+const sClear = new Stream<true>();
 class App extends React.Component<{},{}> {
     constructor(props) {
         super(props);
@@ -45,7 +44,9 @@ class App extends React.Component<{},{}> {
                 <div className={style.header}>
                     <PricePanel prices={prices}/>
                 </div>
-                <div className={style.input}/>
+                <div className={style.input}>
+                    <InputPanel sClear={sClear}/>
+                </div>
                 <div className={style.pump}>
                     <LCD cPresetLCD={cTestLCDPreset} name="dollars"/>
                     <LCD cPresetLCD={cTestLCDPreset} name="liters"/>
