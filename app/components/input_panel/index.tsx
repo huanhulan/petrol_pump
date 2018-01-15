@@ -5,7 +5,7 @@ import LCD from '../LCD';
 import Keypad from './keypad';
 import * as style from './style.scss';
 
-class InputPanel extends React.Component<InputPanelInterface,{}> {
+class InputPanel extends React.PureComponent<InputPanelInterface> {
     value: CellLoop<number>;
     sBeep: Stream<boolean>;
     sKeypad: StreamSink<keys>;
