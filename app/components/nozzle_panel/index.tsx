@@ -10,7 +10,7 @@ const srcs = [nozzle1PNG, nozzle2PNG, nozzle3PNG];
 const nozzles = ['FUEL1', 'FUEL2', 'FUEL3'].map((name, index) => {
     return {
         name,
-        src: srcs[index]
+        src: srcs[index].toString()
     }
 });
 

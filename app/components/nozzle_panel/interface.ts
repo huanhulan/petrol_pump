@@ -11,7 +11,7 @@ enum UpDown {
 interface nozzleProps {
     cPriceLCD: Cell<string>,
     name: string,
-    src: any
+    src: string
 }
 
 interface nozzleState {

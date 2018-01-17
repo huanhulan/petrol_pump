@@ -12,7 +12,7 @@ module.exports = function (cssLoaderOptions, sassLoaderOptions) {
         },
 
         resolve: {
-            extensions: [".ts", ".tsx", ".js", ".json", "png"]
+            extensions: [".ts", ".tsx", ".js", ".json", "png", "wav"]
         },
 
         module: {
@@ -43,6 +43,14 @@ module.exports = function (cssLoaderOptions, sassLoaderOptions) {
                     }
                 }, {
                     loader: "image-webpack-loader"
+                }]
+            }, {
+                test: /\.(wav)$/i,
+                use: [{
+                    loader: "file-loader",
+                    options: {
+                        name: "[hash].[ext]",
+                    }
                 }]
             }, {
                 test: /\.modernizrrc\.json$/,

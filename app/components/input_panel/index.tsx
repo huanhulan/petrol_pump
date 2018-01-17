@@ -5,7 +5,7 @@ import LCD from '../LCD';
 import Keypad from './keypad';
 import * as style from './style.scss';
 
-class InputPanel extends React.PureComponent<InputPanelInterface> {
+class InputPanel extends React.Component<InputPanelInterface,{}> {
     value: CellLoop<number>;
     sBeep: Stream<boolean>;
     sKeypad: StreamSink<keys>;
@@ -44,6 +44,10 @@ class InputPanel extends React.PureComponent<InputPanelInterface> {
             this.value.loop(sKeyUpdate.orElse(props.sClear.map(u => 0)).hold(0));
             this.sBeep = sKeyUpdate.map(() => true);
         });
+    }
+
+    shouldComponentUpdate() {
+        return false;
     }
 
     onClick(key) {

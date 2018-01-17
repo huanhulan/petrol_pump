@@ -2,7 +2,7 @@ import {Stream, Cell} from  'sodiumjs'
 import {keys} from './keypad/interface'
 
 interface InputPanelInterface {
-    sClear: Stream<true>,
+    sClear: Stream<true|null>,
     cActive?: Cell<boolean>
 }
 

@@ -1,13 +1,18 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import * as ReactModal from 'react-modal';
-import {Cell, Stream, CellSink} from 'sodiumjs';
+import {Cell, Stream, CellSink, StreamSink} from 'sodiumjs';
 import * as style from "./style/index.scss";
 import getLCDStr from './lib/getLCDStr';
 import {PricePanel} from './components/price_panel';
 import {NozzlePanel} from './components/nozzle_panel';
+import Audio from './components/audio';
 import LCD from './components/LCD';
 import InputPanel from './components/input_panel';
+import {delivery} from './components/audio/interface';
+import * as  beepClip from './assets/sounds/beep.wav';
+import * as fastRumble from './assets/sounds/fast.wav';
+import * as slowRumble from './assets/sounds/slow.wav';
 
 const pricePropsFactory = ({name, price}) => {
     return {
@@ -29,34 +34,71 @@ const prices = [{
 
 const cTestLCDPreset = new Cell('12345678.09');
 const cPriceArr = prices.map(price => price.cPrice);
-const sClear = new Stream<true>();
-class App extends React.Component<{},{}> {
-    constructor(props) {
-        super(props);
+const sClear = new Stream<true|null>();
+const cDelivery = new CellSink<delivery>(delivery.OFF);
+const sBeepTest = new StreamSink<true|null>();
+const sBeep = sBeepTest.map(u => u);
+
+const context = new AudioContext();
+const pLoadSounds = [beepClip, fastRumble, slowRumble].map(url => {
+    return new Promise((resolve, reject) => {
+        let soundsBuffer;
+        (function (url) {
+            const request = new XMLHttpRequest();
+            request.open('GET', url, true);
+            request.responseType = 'arraybuffer';
+            request.onload = function () {
+                context.decodeAudioData(request.response, function (buffer) {
+                    soundsBuffer = buffer;
+                    resolve(soundsBuffer);
+                }, e => reject(e));
+            };
+            request.send();
+        })(url.toString());// Hack: for typescript type check
+    });
+});
+
+Promise.all(pLoadSounds).then((soundsBuffer) => {
+    class App extends React.Component<{},{}> {
+        constructor(props) {
+            super(props);
+        }
+
+        componentDidMount() {
+            // Todo: remove test codes
+            console.log(this.refs)
+            setTimeout(() => {
+                sBeepTest.send(true);
+            }, 2000)
+            setTimeout(() => {
+                cDelivery.send(delivery.FAST2);
+            }, 3000)
+            setTimeout(() => {
+                cDelivery.send(delivery.OFF);
+            }, 4000)
+        }
+
+        render() {
+            return (
+                <div className={style.app}>
+                    <Audio context={context} soundsBuffer={soundsBuffer as AudioBuffer[]} cDelivery={cDelivery}
+                           sBeep={sBeep}/>
+                    <div className={style.header}>
+                        <PricePanel prices={prices}/>
+                    </div>
+                    <div className={style.input}>
+                        <InputPanel sClear={sClear} ref="InputPanel"/>
+                    </div>
+                    <div className={style.pump}>
+                        <LCD cPresetLCD={cTestLCDPreset} name="dollars"/>
+                        <LCD cPresetLCD={cTestLCDPreset} name="liters"/>
+                        <NozzlePanel cPriceLCDs={cPriceArr.map(cell => cell.map(v => getLCDStr(v,4)))}
+                                     ref="NozzlePanel"/>
+                    </div>
+                </div>
+            );
+        }
     }
 
-    componentDidMount() {
-        console.log(this.refs)
-    }
-
-    render() {
-        return (
-            <div className={style.app}>
-                <div className={style.header}>
-                    <PricePanel prices={prices}/>
-                </div>
-                <div className={style.input}>
-                    <InputPanel sClear={sClear}/>
-                </div>
-                <div className={style.pump}>
-                    <LCD cPresetLCD={cTestLCDPreset} name="dollars"/>
-                    <LCD cPresetLCD={cTestLCDPreset} name="liters"/>
-                    <NozzlePanel cPriceLCDs={cPriceArr.map(cell => cell.map(v => getLCDStr(v,4)))}
-                                 ref="NozzlePanel"/>
-                </div>
-            </div>
-        );
-    }
-}
-
-ReactDOM.render(<App />, document.getElementById("viewport"));
+    ReactDOM.render(<App />, document.getElementById("viewport"));
+});

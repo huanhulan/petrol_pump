@@ -1,1 +1,4 @@
-export const nozzle2PNG: string;
+declare namespace nozzle2PNG {
+    const toString: () => string;
+}
+export = nozzle2PNG;
