@@ -41,7 +41,7 @@ enum End { END }
 
 interface audioProps {
     cDelivery: Cell<Delivery>,
-    sBeep: Stream<true>
+    sBeep: Stream<Unit>
     context: AudioContext,
     soundsBuffer: AudioBuffer[]
 }
@@ -70,8 +70,8 @@ interface nozzlePanelInterface {
 }
 
 interface modalProps {
-    fuleType: string,
-    fulePrice: string,
+    fuelType: string,
+    fuelPrice: string,
     dollarsDelivered: string,
     litersDelivered: string
 }
@@ -97,7 +97,7 @@ interface keypadProps {
 }
 
 interface inputPanelInterface {
-    sClear: Stream<true|null>,
+    sClear: Stream<Unit>,
     cActive?: Cell<boolean>
 }
 

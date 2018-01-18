@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import * as ReactModal from 'react-modal';
-import {Cell, Stream, CellSink, StreamSink, Transaction, CellLoop} from 'sodiumjs';
+import {Cell, Stream, CellSink, StreamSink, Transaction, CellLoop, Unit} from 'sodiumjs';
 import * as style from "./style/index.scss";
 import getLCDStr from './lib/getLCDStr';
 import {PricePanel} from './components/price_panel';
@@ -34,7 +34,7 @@ const prices = [{
 }].map(conf => pricePropsFactory(conf));
 const cTestLCDPreset = new Cell('12345678.09');
 const cPriceArr = prices.map(price => price.cPrice);
-const sClear = new Stream<true|null>();
+const sClear = new Stream<Unit>();
 const cDelivery = new CellSink<Delivery>(Delivery.OFF);
 const sBeepTest = new StreamSink<true>();
 const sKeyClick = new StreamSink<null>();
