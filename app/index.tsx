@@ -41,10 +41,10 @@ const sKeyClick = new StreamSink<null>();
 Transaction.run(() => {
     const cNozzle = new CellLoop<null|UpDown>();
     cNozzle.loop(sKeyClick
-        .snapshot(cNozzle, (click, direction) => direction === UpDown.Down
-            ? UpDown.Up
-            : UpDown.Down)
-        .hold(UpDown.Down));
+        .snapshot(cNozzle, (click, direction) => direction === UpDown.DOWN
+            ? UpDown.UP
+            : UpDown.DOWN)
+        .hold(UpDown.DOWN));
 });
 
 // audio settings

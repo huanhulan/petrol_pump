@@ -1,8 +1,41 @@
 import {Stream, Cell, CellSink, CellLoop, StreamSink} from 'sodiumjs';
 
 enum Delivery{
-    OFF, SLOW1, FAST1, SLOW2, FAST2, SLOW3, FAST3
+    OFF,
+    SLOW1,
+    FAST1,
+    SLOW2,
+    FAST2,
+    SLOW3,
+    FAST3
 }
+
+enum UpDown {
+    UP = 1,
+    DOWN,
+}
+
+enum Fuel {
+    ONE,
+    TWO,
+    THREE
+}
+
+enum Keys{
+    ZERO,
+    ONE,
+    TWO,
+    THREE,
+    FOUR,
+    FIVE,
+    SIX,
+    SEVEN,
+    EIGHT,
+    NINE,
+    CLEAR
+}
+
+enum End { END }
 
 interface audioProps {
     cDelivery: Cell<Delivery>,
@@ -20,11 +53,6 @@ interface pricePropsInterface extends priceStateInterface {
     cPrice: CellSink<number>
 }
 
-enum UpDown {
-    Up = 1,
-    Down,
-}
-
 interface nozzleProps {
     cPriceLCD: Cell<string>,
     name: string,
@@ -38,8 +66,6 @@ interface nozzleState {
 interface nozzlePanelInterface {
     cPriceLCDs: Cell<string>[]
 }
-
-enum Fuel { ONE, TWO, THREE }
 
 interface modalProps {
     fuleType: string,
@@ -64,20 +90,6 @@ interface digitPropsInterface extends svgPropsInterface {
     val: number
 }
 
-enum Keys{
-    ZERO,
-    ONE,
-    TWO,
-    THREE,
-    FOUR,
-    FIVE,
-    SIX,
-    SEVEN,
-    EIGHT,
-    NINE,
-    CLEAR
-}
-
 interface keypadProps {
     onClick: (Keys) => any
 }
@@ -87,13 +99,12 @@ interface inputPanelInterface {
     cActive?: Cell<boolean>
 }
 
-
-
 export {
     Delivery,
     UpDown,
     Fuel,
     Keys,
+    End,
     audioProps,
     pricePropsInterface,
     priceStateInterface,

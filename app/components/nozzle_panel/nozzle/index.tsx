@@ -13,10 +13,10 @@ class Nozzle extends React.Component<nozzleProps,nozzleState> {
         Transaction.run(() => {
             this.cNozzle = new CellLoop<null|UpDown>();
             this.cNozzle.loop(this.sClick
-                .snapshot(this.cNozzle, (click, direction) => direction === UpDown.Down
-                    ? UpDown.Up
-                    : UpDown.Down)
-                .hold(UpDown.Down));
+                .snapshot(this.cNozzle, (click, direction) => direction === UpDown.DOWN
+                    ? UpDown.UP
+                    : UpDown.DOWN)
+                .hold(UpDown.DOWN));
         });
         this.state = {
             direction: this.cNozzle.sample()
@@ -41,7 +41,7 @@ class Nozzle extends React.Component<nozzleProps,nozzleState> {
         return (
             <div className={style.nozzle}>
                 <LCD name={this.props.name} cPresetLCD={this.props.cPriceLCD}/>
-                <button className={[style['nozzle-button'],this.state.direction===UpDown.Up?style.lifed:''].join(' ')}
+                <button className={[style['nozzle-button'],this.state.direction===UpDown.DOWN?style.lifed:''].join(' ')}
                         onClick={this.onclick.bind(this)}>
                     <img src={this.props.src} alt={this.props.name} className={style['nozzle-img']}/>
                 </button>
