@@ -1,5 +1,6 @@
 import {Stream, Cell, CellSink, CellLoop, StreamSink, Unit, Transaction, Operational} from 'sodiumjs';
 import {Keys, UpDown} from '../types'
+import {inputsInterface} from '../types';
 
 const pricePropsFactory = ({price}) => {
     return {
@@ -7,7 +8,7 @@ const pricePropsFactory = ({price}) => {
     }
 };
 
-export default function (priceConfigs) {
+export default function (priceConfigs): inputsInterface {
     return Transaction.run(() => {
         const [cNozzle1, cNozzle2, cNozzle3] = [0, 1, 2].map(() => {
             const cNozzle = new CellLoop<null|UpDown>();

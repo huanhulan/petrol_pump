@@ -1,4 +1,6 @@
-import {Stream, Cell, CellSink, CellLoop, StreamSink} from 'sodiumjs';
+import {Stream, Cell, CellSink, CellLoop, StreamSink, Unit} from 'sodiumjs';
+
+type Optional<A> = A|null;
 
 enum Delivery{
     OFF,
@@ -99,6 +101,16 @@ interface inputPanelInterface {
     cActive?: Cell<boolean>
 }
 
+interface inputsInterface {
+    cNozzle1: CellLoop<UpDown>, cNozzle2: CellLoop<UpDown>, cNozzle3: CellLoop<UpDown>,
+    sNozzle1: Stream<UpDown>, sNozzle: Stream<UpDown>, sNozzle3: Stream<UpDown>,
+    sKeypad: StreamSink<Keys>,
+    sFuelPulses: StreamSink<number>,
+    cCalibration: Cell<number>,
+    cPrice1: CellSink<number>, cPrice2: CellSink<number>, cPrice3: CellSink<number>,
+    sClearSale: Stream <Unit>
+}
+
 export {
     Delivery,
     UpDown,
@@ -117,5 +129,7 @@ export {
     svgPropsInterface,
     digitPropsInterface,
     keypadProps,
-    inputPanelInterface
+    inputPanelInterface,
+    inputsInterface,
+    Optional
 }
