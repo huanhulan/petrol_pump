@@ -1,6 +1,6 @@
 import {Dot, DigitNumber} from './digit_number';
 import * as React from "react";
-import {LCDPropsInterface, LCDState} from './interface'
+import {LCDPropsInterface, LCDState} from '../../types'
 import * as style from './style.scss';
 
 const digitWidth = 48;

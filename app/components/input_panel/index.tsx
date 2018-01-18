@@ -1,14 +1,14 @@
 import * as React from "react";
 import {Stream, CellLoop, Transaction, StreamSink} from  'sodiumjs'
-import {InputPanelInterface, keys} from './interface';
+import {inputPanelInterface, Keys} from '../../types';
 import LCD from '../LCD';
 import Keypad from './keypad';
 import * as style from './style.scss';
 
-class InputPanel extends React.Component<InputPanelInterface,{}> {
-    value: CellLoop<number>;
-    sBeep: Stream<boolean>;
-    sKeypad: StreamSink<keys>;
+class InputPanel extends React.Component<inputPanelInterface,{}> {
+    cValue: CellLoop<number>;
+    sBeep: Stream<true>;
+    sKeypad: StreamSink<Keys>;
 
     private getLCDStr(v: number|null) {
         if (v === null) return '';
@@ -17,32 +17,32 @@ class InputPanel extends React.Component<InputPanelInterface,{}> {
         return (new Array(4 - str.length)).join(' ') + str + '.00';
     }
 
-    constructor(props: InputPanelInterface) {
+    constructor(props: inputPanelInterface) {
         super(props);
         Transaction.run(() => {
-            this.sKeypad = new StreamSink<keys>();
-            this.value = new CellLoop<number>();
-            const sKeyUpdate = this.sKeypad.snapshot(this.value, (key, value) => {
-                if (key === keys.CLEAR) {
+            this.sKeypad = new StreamSink<Keys>();
+            this.cValue = new CellLoop<number>();
+            const sKeyUpdate = this.sKeypad.snapshot(this.cValue, (key, value) => {
+                if (key === Keys.CLEAR) {
                     return 0;
                 } else {
                     const tmp = value * 10;
                     return tmp >= 1000
                         ? null
-                        : (key === keys.ZERO ? tmp :
-                            key === keys.ONE ? tmp + 1 :
-                                key === keys.TWO ? tmp + 2 :
-                                    key === keys.THREE ? tmp + 3 :
-                                        key === keys.FOUR ? tmp + 4 :
-                                            key === keys.FIVE ? tmp + 5 :
-                                                key === keys.SIX ? tmp + 6 :
-                                                    key === keys.SEVEN ? tmp + 7 :
-                                                        key === keys.EIGHT ? tmp + 8 :
+                        : (key === Keys.ZERO ? tmp :
+                            key === Keys.ONE ? tmp + 1 :
+                                key === Keys.TWO ? tmp + 2 :
+                                    key === Keys.THREE ? tmp + 3 :
+                                        key === Keys.FOUR ? tmp + 4 :
+                                            key === Keys.FIVE ? tmp + 5 :
+                                                key === Keys.SIX ? tmp + 6 :
+                                                    key === Keys.SEVEN ? tmp + 7 :
+                                                        key === Keys.EIGHT ? tmp + 8 :
                                                             tmp + 9)
                 }
             }).filterNotNull() as Stream<number>;
-            this.value.loop(sKeyUpdate.orElse(props.sClear.map(u => 0)).hold(0));
-            this.sBeep = sKeyUpdate.map(() => true);
+            this.cValue.loop(sKeyUpdate.orElse(props.sClear.map(u => 0)).hold(0));
+            this.sBeep = sKeyUpdate.map(() => true) as Stream<true>;
         });
     }
 
@@ -57,7 +57,7 @@ class InputPanel extends React.Component<InputPanelInterface,{}> {
     render() {
         return (
             <div className={style['input-panel']}>
-                <LCD name="preset" cPresetLCD={this.value.map((v)=>v?this.getLCDStr(v):'')}/>
+                <LCD name="preset" cPresetLCD={this.cValue.map((v)=>v?this.getLCDStr(v):'')}/>
                 <Keypad onClick={this.onClick.bind(this)}/>
             </div>
         )

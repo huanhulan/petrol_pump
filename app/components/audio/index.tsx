@@ -1,5 +1,5 @@
 import * as React from "react";
-import {delivery, audioProps} from './interface';
+import {Delivery, audioProps} from '../../types';
 import {Operational, Cell} from 'sodiumjs';
 
 function changes(b: Cell<any>) {
@@ -40,23 +40,22 @@ class Audio extends React.Component<audioProps,{}> {
         const nodes = props.soundsBuffer.map((buffer, index) => makeAudioNode(props.context, buffer, !!index));
         changes(props.cDelivery).listen(d => {
             switch (d) {
-                case delivery.FAST1:
-                case delivery.FAST2:
-                case delivery.FAST3:
+                case Delivery.FAST1:
+                case Delivery.FAST2:
+                case Delivery.FAST3:
                     this.playSound(nodes[1]);
                     break;
-                case delivery.SLOW1:
-                case delivery.SLOW2:
-                case delivery.SLOW3:
+                case Delivery.SLOW1:
+                case Delivery.SLOW2:
+                case Delivery.SLOW3:
                     this.playSound(nodes[2]);
                     break;
                 default:
-                    this.stop()
+                    this.stop();
                     break;
             }
         });
-        props.sBeep.filterNotNull().listen(u => {
-            console.log('BEEP!');
+        props.sBeep.listen(u => {
             this.playSound(nodes[0]);
         });
     }

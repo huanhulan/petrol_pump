@@ -1,5 +1,5 @@
 import * as React from "react";
-import {svgPropsInterface, digitPropsInterface} from './interface';
+import {svgPropsInterface, digitPropsInterface} from '../../../types';
 import * as style from './style.scss';
 
 function DigitNumber(props: digitPropsInterface) {

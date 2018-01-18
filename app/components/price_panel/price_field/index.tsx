@@ -1,5 +1,5 @@
 import * as React from "react";
-import {PricePropsInterface, PriceStateInterface} from './interface';
+import {pricePropsInterface, priceStateInterface} from '../../../types';
 import * as style from './style.scss';
 
 const parseDbl = v => {
@@ -8,7 +8,7 @@ const parseDbl = v => {
 };
 
 
-class PriceField extends React.Component<PricePropsInterface,PriceStateInterface> {
+class PriceField extends React.Component<pricePropsInterface,priceStateInterface> {
     constructor(props) {
         super(props);
         this.state = {

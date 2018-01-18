@@ -1,5 +1,5 @@
 import * as React from "react";
-import {UpDown, nozzleProps, nozzleState} from './../interface';
+import {UpDown, nozzleProps, nozzleState} from '../../../types';
 import {Transaction, StreamSink, CellLoop} from 'sodiumjs';
 import LCD from './../../LCD';
 import * as style from './style.scss';

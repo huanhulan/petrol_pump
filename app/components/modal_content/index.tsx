@@ -1,5 +1,5 @@
 import * as React from "react";
-import modalProps from './interface';
+import {modalProps} from '../../types';
 
 export default function (props: modalProps) {
     return (

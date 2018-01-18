@@ -1,5 +1,5 @@
 import * as React from "react";
-import {keys, keypadProps} from './interface'
+import {Keys, keypadProps} from '../../../types'
 import * as style from './style.scss';
 
 export default function (props: keypadProps) {
@@ -11,20 +11,20 @@ export default function (props: keypadProps) {
         <div className={style.keypad}>
             {
                 [
-                    keys.ONE,
-                    keys.TWO,
-                    keys.THREE,
-                    keys.FOUR,
-                    keys.FIVE,
-                    keys.SIX,
-                    keys.SEVEN,
-                    keys.EIGHT,
-                    keys.NINE,
-                    keys.ZERO,
-                    keys.CLEAR
+                    Keys.ONE,
+                    Keys.TWO,
+                    Keys.THREE,
+                    Keys.FOUR,
+                    Keys.FIVE,
+                    Keys.SIX,
+                    Keys.SEVEN,
+                    Keys.EIGHT,
+                    Keys.NINE,
+                    Keys.ZERO,
+                    Keys.CLEAR
                 ].map((key, index) => (
                     <button className={style.button} onClick={onClickFactory(key)} key={key}>
-                        {key === keys.CLEAR ? keys[10] : key}
+                        {key === Keys.CLEAR ? Keys[10] : key}
                     </button>)
                 )
             }

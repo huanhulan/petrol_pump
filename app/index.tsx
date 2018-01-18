@@ -1,19 +1,20 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import * as ReactModal from 'react-modal';
-import {Cell, Stream, CellSink, StreamSink} from 'sodiumjs';
+import {Cell, Stream, CellSink, StreamSink, Transaction, CellLoop} from 'sodiumjs';
 import * as style from "./style/index.scss";
 import getLCDStr from './lib/getLCDStr';
 import {PricePanel} from './components/price_panel';
-import {NozzlePanel} from './components/nozzle_panel';
+import {NozzlePanel, UpDown} from './components/nozzle_panel';
 import Audio from './components/audio';
 import LCD from './components/LCD';
 import InputPanel from './components/input_panel';
-import {delivery} from './components/audio/interface';
+import {Delivery} from './types';
 import * as  beepClip from './assets/sounds/beep.wav';
 import * as fastRumble from './assets/sounds/fast.wav';
 import * as slowRumble from './assets/sounds/slow.wav';
 
+// frp settings
 const pricePropsFactory = ({name, price}) => {
     return {
         name,
@@ -31,14 +32,22 @@ const prices = [{
     name: 'price3',
     price: 1.499,
 }].map(conf => pricePropsFactory(conf));
-
 const cTestLCDPreset = new Cell('12345678.09');
 const cPriceArr = prices.map(price => price.cPrice);
 const sClear = new Stream<true|null>();
-const cDelivery = new CellSink<delivery>(delivery.OFF);
-const sBeepTest = new StreamSink<true|null>();
-const sBeep = sBeepTest.map(u => u);
+const cDelivery = new CellSink<Delivery>(Delivery.OFF);
+const sBeepTest = new StreamSink<true>();
+const sKeyClick = new StreamSink<null>();
+Transaction.run(() => {
+    const cNozzle = new CellLoop<null|UpDown>();
+    cNozzle.loop(sKeyClick
+        .snapshot(cNozzle, (click, direction) => direction === UpDown.Down
+            ? UpDown.Up
+            : UpDown.Down)
+        .hold(UpDown.Down));
+});
 
+// audio settings
 const context = new AudioContext();
 const pLoadSounds = [beepClip, fastRumble, slowRumble].map(url => {
     return new Promise((resolve, reject) => {
@@ -58,6 +67,7 @@ const pLoadSounds = [beepClip, fastRumble, slowRumble].map(url => {
     });
 });
 
+// main
 Promise.all(pLoadSounds).then((soundsBuffer) => {
     class App extends React.Component<{},{}> {
         constructor(props) {
@@ -68,13 +78,10 @@ Promise.all(pLoadSounds).then((soundsBuffer) => {
             // Todo: remove test codes
             console.log(this.refs)
             setTimeout(() => {
-                sBeepTest.send(true);
-            }, 2000)
-            setTimeout(() => {
-                cDelivery.send(delivery.FAST2);
+                cDelivery.send(Delivery.FAST2);
             }, 3000)
             setTimeout(() => {
-                cDelivery.send(delivery.OFF);
+                cDelivery.send(Delivery.OFF);
             }, 4000)
         }
 
@@ -82,7 +89,7 @@ Promise.all(pLoadSounds).then((soundsBuffer) => {
             return (
                 <div className={style.app}>
                     <Audio context={context} soundsBuffer={soundsBuffer as AudioBuffer[]} cDelivery={cDelivery}
-                           sBeep={sBeep}/>
+                           sBeep={sBeepTest}/>
                     <div className={style.header}>
                         <PricePanel prices={prices}/>
                     </div>

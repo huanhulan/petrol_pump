@@ -4,7 +4,7 @@ import * as nozzle1PNG from "./../../assets/images/nozzle1.png";
 import * as nozzle2PNG from "./../../assets/images/nozzle2.png";
 import * as nozzle3PNG from "./../../assets/images/nozzle3.png";
 import * as style from './style.scss';
-import {nozzlePanelInterface} from "./interface";
+import {nozzlePanelInterface, UpDown} from "../../types";
 
 const srcs = [nozzle1PNG, nozzle2PNG, nozzle3PNG];
 const nozzles = ['FUEL1', 'FUEL2', 'FUEL3'].map((name, index) => {
@@ -54,5 +54,6 @@ class NozzlePanel extends React.Component<nozzlePanelInterface,{}> {
 }
 
 export {
-    NozzlePanel
+    NozzlePanel,
+    UpDown
 }
