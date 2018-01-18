@@ -28,7 +28,7 @@ function wireKeypad(sKeypad: StreamSink<Keys>|Stream<Keys>, sClear: Stream<Unit>
             }
         }).filterNotNull() as Stream<number>;
         cValue.loop(sKeyUpdate.orElse(sClear.map(u => 0)).hold(0));
-        const sBeep = sKeyUpdate.map(() => Unit.UNIT) as Stream<UNIT>;
+        const sBeep = sKeyUpdate.map(() => Unit.UNIT);
 
         return {sBeep, cValue}
     });
