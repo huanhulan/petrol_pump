@@ -29,7 +29,7 @@ class Nozzle extends React.Component<nozzleProps,nozzleState> {
         return (
             <div className={style.nozzle}>
                 <LCD name={this.props.name} cPresetLCD={this.props.cPriceLCD}/>
-                <button className={[style['nozzle-button'],this.state.direction===UpDown.DOWN?style.lifed:''].join(' ')}
+                <button className={[style['nozzle-button'],this.state.direction===UpDown.UP?style.lifed:''].join(' ')}
                         onClick={this.onclick.bind(this)}>
                     <img src={this.props.src} alt={this.props.name} className={style['nozzle-img']}/>
                 </button>

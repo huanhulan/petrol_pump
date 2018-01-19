@@ -3,9 +3,7 @@ import {Keys, UpDown} from '../types'
 import {inputsInterface} from '../types';
 
 const pricePropsFactory = ({price}) => {
-    return {
-        cPrice: new CellSink<number>(price)
-    }
+    return new CellSink<number>(price);
 };
 
 export default function (priceConfigs,
@@ -24,6 +22,7 @@ export default function (priceConfigs,
         });
         const [sNozzle1, sNozzle2, sNozzle3] = [cNozzle1, cNozzle2, cNozzle3].map(nozzle => Operational.updates(nozzle));
         const [cPrice1, cPrice2, cPrice3] = priceConfigs.map(conf => pricePropsFactory(conf));
+        console.log(cPrice1, cPrice2, cPrice3)
         const csClearSale: CellSink<Stream<Unit>> = new CellSink(new Stream<Unit>());
         const sClearSale: Stream <Unit> = Cell.switchS(csClearSale);
         const sKeypad = new StreamSink<Keys>();
