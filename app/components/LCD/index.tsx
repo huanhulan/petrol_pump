@@ -38,13 +38,18 @@ class LCD extends React.Component<LCDPropsInterface,LCDState> {
         return (
             <div className={style['LCD-container']}>
                 <svg viewBox={`0 0 ${getWidth()} ${digitHeight}`}
+                     preserveAspectRatio="xMidYMid meet"
                      className={style['LCD-panel']}
                      width={`${getWidth()}px`}
                      height={`${digitHeight}px`}>
                     {~dotIndex ? <Dot x={getDigitX(dotIndex)-12} y={80}/> : null}
                     {
                         numArr.map((str, index) => {
-                            return <DigitNumber val={+str} x={getDigitX(index)} y={0} key={index}/>
+                            return (
+                                <g transform="skewX(-3)" key={index}>
+                                    <DigitNumber val={+str} x={getDigitX(index)} y={0}/>
+                                </g>
+                            );
                         })
                     }
                 </svg>

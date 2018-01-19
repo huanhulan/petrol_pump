@@ -57,7 +57,7 @@ function pump() {
                 of === Fuel.TWO ? Delivery.FAST2 :
                     of === Fuel.THREE ? Delivery.FAST3 :
                         Delivery.OFF))
-            .setSaleCostLCD(
+            .setSaleQuantityLCD(
                 lc.cFillActive.map(
                     of => of === Fuel.ONE ? '1' :
                         of === Fuel.TWO ? '2' :

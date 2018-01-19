@@ -32,8 +32,12 @@ class App extends React.Component<appPropsInterface,{}> {
                                 sKeypad={this.props.sKeypad}/>
                 </div>
                 <div className={style.pump}>
-                    <LCD cPresetLCD={this.props.cSaleCostLCD} name="dollars"/>
-                    <LCD cPresetLCD={this.props.cSaleQuantityLCD} name="liters"/>
+                    <div className={style.dollars}>
+                        <LCD cPresetLCD={this.props.cSaleCostLCD} name="dollars"/>
+                    </div>
+                    <div className={style.liters}>
+                        <LCD cPresetLCD={this.props.cSaleQuantityLCD} name="liters"/>
+                    </div>
                     <NozzlePanel cPriceLCDs={this.props.cPriceLCDs}
                                  sClicks={this.props.sClicks}
                                  cNozzles={this.props.cNozzles}/>
