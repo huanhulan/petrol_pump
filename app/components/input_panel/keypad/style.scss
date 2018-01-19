@@ -7,6 +7,8 @@
 }
 
 .keypad {
+  width: 84%;
+  margin-left: 8%;
   display: grid;
   grid-template-rows: 1fr 1fr 1fr 1fr;
   grid-template-columns: 1fr 1fr 1fr;
@@ -46,7 +48,7 @@
       grid-area: clear;
     }
     @media screen and (max-width: $tablet-width) {
-      font-size: 10vw;
+      font-size: $tablet-width*0.07;
     }
 
     @media screen and (min-width: $L-laptop-width) {
