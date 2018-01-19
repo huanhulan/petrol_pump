@@ -2,6 +2,8 @@
 
 .LCD-container {
   margin-top: $padding;
+  width: 100%;
+
   .LCD-panel {
     background: $lcd-background;
     border: $bold-border-width solid $dark-black;
