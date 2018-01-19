@@ -17,38 +17,54 @@ function makeAudioNode(context, buffer, shouldLoop) {
 }
 
 class Audio extends React.Component<audioProps,{}> {
-    playingSource: Optional<AudioBufferSourceNode>;
+    playingSource: Optional<number>;
+    nodes: AudioBufferSourceNode[];
 
     constructor(props: audioProps) {
         super(props);
         this.playingSource = null;
+        this.nodes = props.soundsBuffer.map((buffer, index) => makeAudioNode(props.context, buffer, !!index));
     }
 
-    playSound(source) {
-        source.start(0);
-        this.playingSource = source;
+    playSound(index) {
+        if (this.nodes[index] === null || this.nodes[index].buffer === null) return;
+        this.nodes[index].start(0);
+        this.playingSource = index;
+        const buffer = this.nodes[index].buffer || {duration: 100};
+        if (index === 0) {
+            const timer = setTimeout(() => {
+                this.remakeSource(0);
+                clearTimeout(timer);
+            }, buffer.duration);
+        }
     }
 
     stop() {
-        if (!this.playingSource) return;
-        this.playingSource.stop();
+        const index = this.playingSource;
+        if (index === null) return;
+        this.nodes[index].stop();
+        this.remakeSource(index);
         this.playingSource = null;
+    }
+
+    remakeSource(index) {
+        this.nodes[index] = makeAudioNode(this.props.context,
+            this.props.soundsBuffer[index], !!index);
     }
 
     componentDidMount() {
         const props = this.props;
-        const nodes = props.soundsBuffer.map((buffer, index) => makeAudioNode(props.context, buffer, !!index));
         changes(props.cDelivery).listen(d => {
             switch (d) {
                 case Delivery.FAST1:
                 case Delivery.FAST2:
                 case Delivery.FAST3:
-                    this.playSound(nodes[1]);
+                    this.playSound(1);
                     break;
                 case Delivery.SLOW1:
                 case Delivery.SLOW2:
                 case Delivery.SLOW3:
-                    this.playSound(nodes[2]);
+                    this.playSound(2);
                     break;
                 default:
                     this.stop();
@@ -56,7 +72,7 @@ class Audio extends React.Component<audioProps,{}> {
             }
         });
         props.sBeep.listen(u => {
-            this.playSound(nodes[0]);
+            this.playSound(0);
         });
     }
 
