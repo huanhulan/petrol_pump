@@ -15,8 +15,12 @@
     &:focus {
       outline: none;
     }
+    &:hover {
+      cursor: -webkit-grab;
+    }
   }
-  .lifed {
+  .nozzle-button.lifed {
     transform: translateY(-$padding*2);
+    cursor: -webkit-grabbing;
   }
 }
