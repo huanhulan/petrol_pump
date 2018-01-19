@@ -1,30 +1,18 @@
 import * as React from "react";
 import {UpDown, nozzleProps, nozzleState} from '../../../types';
-import {Transaction, StreamSink, CellLoop} from 'sodiumjs';
 import LCD from './../../LCD';
 import * as style from './style.scss';
 
 class Nozzle extends React.Component<nozzleProps,nozzleState> {
-    private sClick = new StreamSink<null>();
-    public cNozzle;
-
     constructor(props: nozzleProps) {
         super(props);
-        Transaction.run(() => {
-            this.cNozzle = new CellLoop<null|UpDown>();
-            this.cNozzle.loop(this.sClick
-                .snapshot(this.cNozzle, (click, direction) => direction === UpDown.DOWN
-                    ? UpDown.UP
-                    : UpDown.DOWN)
-                .hold(UpDown.DOWN));
-        });
         this.state = {
-            direction: this.cNozzle.sample()
+            direction: this.props.cNozzle.sample()
         };
     }
 
     componentDidMount() {
-        this.cNozzle.listen((direction) => {
+        this.props.cNozzle.listen((direction) => {
             this.setState({direction});
         });
     }
@@ -34,7 +22,7 @@ class Nozzle extends React.Component<nozzleProps,nozzleState> {
     }
 
     onclick() {
-        this.sClick.send(null);
+        this.props.sClick.send(this.state.direction === UpDown.UP ? UpDown.DOWN : UpDown.UP);
     };
 
     render() {

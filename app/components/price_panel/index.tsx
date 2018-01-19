@@ -1,16 +1,16 @@
 import PriceField from './price_field';
 import * as React from "react";
 import * as style from './style.scss';
+import {pricePanelPropsInterface} from '../../types'
 
-function PricePanel(props) {
+function PricePanel(props: pricePanelPropsInterface) {
     return (
         <div className={style['price-panel']}>
             {props.prices.map(
-                ({name, price, cPrice}, index) => (
+                ({name, cPrice}, index) => (
                     <PriceField
                         name={name}
                         key={index}
-                        price={price}
                         cPrice={cPrice}
                     />
                 )
@@ -19,4 +19,4 @@ function PricePanel(props) {
     )
 }
 
-export {PricePanel};
+export default PricePanel;

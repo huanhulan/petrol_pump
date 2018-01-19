@@ -1,5 +1,5 @@
 import * as React from "react";
-import {Delivery, audioProps} from '../../types';
+import {Delivery, audioProps, Optional} from '../../types';
 import {Operational, Cell} from 'sodiumjs';
 
 function changes(b: Cell<any>) {
@@ -17,7 +17,7 @@ function makeAudioNode(context, buffer, shouldLoop) {
 }
 
 class Audio extends React.Component<audioProps,{}> {
-    playingSource: AudioBufferSourceNode|null;
+    playingSource: Optional<AudioBufferSourceNode>;
 
     constructor(props: audioProps) {
         super(props);

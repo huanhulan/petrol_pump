@@ -12,7 +12,7 @@ class PriceField extends React.Component<pricePropsInterface,priceStateInterface
     constructor(props) {
         super(props);
         this.state = {
-            price: props.price
+            price: props.cPrice.sample()
         };
     }
 

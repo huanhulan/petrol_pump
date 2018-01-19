@@ -27,47 +27,47 @@ class Outputs {
 
     setDelivery(delivery: Cell<Delivery>) {
         this.cDelivery = delivery;
-        return this;
+        return <Outputs>this;
     }
 
     setPresetLCD(presetLCD: Cell<string>) {
         this.cPresetLCD = presetLCD;
-        return this;
+        return <Outputs>this;
     }
 
     setSaleCostLCD(saleCostLCD: Cell<string>) {
         this.cSaleCostLCD = saleCostLCD;
-        return this;
+        return <Outputs>this;
     }
 
     setSaleQuantityLCD(saleQuantityLCD: Cell<string>) {
         this.cSaleQuantityLCD = saleQuantityLCD;
-        return this;
+        return <Outputs>this;
     }
 
     setPriceLCD1(priceLCD1: Cell<string>) {
         this.cPriceLCD1 = priceLCD1;
-        return this;
+        return <Outputs>this;
     }
 
     setPriceLCD2(priceLCD2: Cell<string>) {
         this.cPriceLCD2 = priceLCD2;
-        return this;
+        return <Outputs>this;
     }
 
     setPriceLCD3(priceLCD3: Cell<string>) {
         this.cPriceLCD3 = priceLCD3;
-        return this;
+        return <Outputs>this;
     }
 
     setBeep(sBeep: Stream<Unit>) {
         this.sBeep = sBeep;
-        return this;
+        return <Outputs>this;
     }
 
     setSaleComplete(sSaleComplete: Stream<Sale>) {
         this.sSaleComplete = sSaleComplete;
-        return this;
+        return <Outputs>this;
     }
 }
 

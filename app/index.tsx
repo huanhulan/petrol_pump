@@ -1,51 +1,11 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import * as ReactModal from 'react-modal';
-import {Cell, Stream, CellSink, StreamSink, Transaction, CellLoop, Unit} from 'sodiumjs';
-import * as style from "./style/index.scss";
-import getLCDStr from './lib/getLCDStr';
-import {PricePanel} from './components/price_panel';
-import {NozzlePanel, UpDown} from './components/nozzle_panel';
-import Audio from './components/audio';
-import LCD from './components/LCD';
-import InputPanel from './components/input_panel';
-import {Delivery} from './types';
+import App from './app';
+import pump from './pump';
 import * as  beepClip from './assets/sounds/beep.wav';
 import * as fastRumble from './assets/sounds/fast.wav';
 import * as slowRumble from './assets/sounds/slow.wav';
-
-// frp settings
-const pricePropsFactory = ({name, price}) => {
-    return {
-        name,
-        price,
-        cPrice: new CellSink(price)
-    }
-};
-const prices = [{
-    name: 'price1',
-    price: 2.149,
-}, {
-    name: 'price2',
-    price: 2.341,
-}, {
-    name: 'price3',
-    price: 1.499,
-}].map(conf => pricePropsFactory(conf));
-const cTestLCDPreset = new Cell('12345678.09');
-const cPriceArr = prices.map(price => price.cPrice);
-const sClear = new Stream<Unit>();
-const cDelivery = new CellSink<Delivery>(Delivery.OFF);
-const sBeepTest = new StreamSink<true>();
-const sKeyClick = new StreamSink<null>();
-Transaction.run(() => {
-    const cNozzle = new CellLoop<null|UpDown>();
-    cNozzle.loop(sKeyClick
-        .snapshot(cNozzle, (click, direction) => direction === UpDown.DOWN
-            ? UpDown.UP
-            : UpDown.DOWN)
-        .hold(UpDown.DOWN));
-});
 
 // audio settings
 const context = new AudioContext();
@@ -68,44 +28,43 @@ const pLoadSounds = [beepClip, fastRumble, slowRumble].map(url => {
 });
 
 // main
-Promise.all(pLoadSounds).then((soundsBuffer) => {
-    class App extends React.Component<{},{}> {
-        constructor(props) {
-            super(props);
-        }
+Promise.all(pLoadSounds).then((soundsBuffer: AudioBuffer[]) => {
+    const {
+        sClicks,
+        cNozzles,
+        cPriceLCDs,
+        prices,
+        // sNozzle1,
+        // sNozzle2,
+        // sNozzle3,
+        sKeypad,
+        sFuelPulses,
+        cCalibration,
+        sClearSale,
+        cDelivery,
+        cPresetLCD,
+        cSaleCostLCD,
+        cSaleQuantityLCD,
+        sBeep,
+        sSaleComplete,
+        cValue
+    } = pump();
 
-        componentDidMount() {
-            // Todo: remove test codes
-            console.log(this.refs)
-            setTimeout(() => {
-                cDelivery.send(Delivery.FAST2);
-            }, 3000)
-            setTimeout(() => {
-                cDelivery.send(Delivery.OFF);
-            }, 4000)
-        }
-
-        render() {
-            return (
-                <div className={style.app}>
-                    <Audio context={context} soundsBuffer={soundsBuffer as AudioBuffer[]} cDelivery={cDelivery}
-                           sBeep={sBeepTest}/>
-                    <div className={style.header}>
-                        <PricePanel prices={prices}/>
-                    </div>
-                    <div className={style.input}>
-                        <InputPanel sClear={sClear} ref="InputPanel"/>
-                    </div>
-                    <div className={style.pump}>
-                        <LCD cPresetLCD={cTestLCDPreset} name="dollars"/>
-                        <LCD cPresetLCD={cTestLCDPreset} name="liters"/>
-                        <NozzlePanel cPriceLCDs={cPriceArr.map(cell => cell.map(v => getLCDStr(v,4)))}
-                                     ref="NozzlePanel"/>
-                    </div>
-                </div>
-            );
-        }
-    }
-
-    ReactDOM.render(<App />, document.getElementById("viewport"));
+    ReactDOM.render(<App
+            context={context}
+            soundsBuffer={soundsBuffer}
+            cDelivery={cDelivery}
+            prices={prices}
+            sClear={sClearSale}
+            cValue={cValue}
+            sBeep={sBeep}
+            cPresetLCD={cPresetLCD}
+            sKeypad={sKeypad}
+            cSaleCostLCD={cSaleCostLCD}
+            cSaleQuantityLCD={cSaleQuantityLCD}
+            cPriceLCDs={cPriceLCDs}
+            sClicks={sClicks}
+            cNozzles={cNozzles}
+        />,
+        document.getElementById("viewport"));
 });

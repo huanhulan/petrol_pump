@@ -50,23 +50,31 @@ interface priceStateInterface {
     price: number
 }
 
-interface pricePropsInterface extends priceStateInterface {
+interface pricePropsInterface {
     name: string,
     cPrice: CellSink<number>
+}
+
+interface pricePanelPropsInterface {
+    prices: pricePropsInterface[]
 }
 
 interface nozzleProps {
     cPriceLCD: Cell<string>,
     name: string,
-    src: string
+    src: string,
+    cNozzle: CellLoop<UpDown>,
+    sClick: StreamSink<UpDown>
 }
 
 interface nozzleState {
     direction: UpDown
 }
 
-interface nozzlePanelInterface {
-    cPriceLCDs: Cell<string>[]
+interface nozzlePanelProps {
+    cPriceLCDs: Cell<string>[],
+    cNozzles: CellLoop<UpDown>[],
+    sClicks: StreamSink<UpDown>[],
 }
 
 interface modalProps {
@@ -98,17 +106,29 @@ interface keypadProps {
 
 interface inputPanelInterface {
     sClear: Stream<Unit>,
-    cActive?: Cell<boolean>
+    cActive?: Cell<boolean>,
+    cValue: CellLoop<number>;
+    sBeep: Stream<Unit>;
+    sKeypad: StreamSink<Keys>;
+    cPresetLCD: Cell<string>
 }
 
 interface inputsInterface {
     cNozzle1: CellLoop<UpDown>, cNozzle2: CellLoop<UpDown>, cNozzle3: CellLoop<UpDown>,
-    sNozzle1: Stream<UpDown>, sNozzle: Stream<UpDown>, sNozzle3: Stream<UpDown>,
+    sNozzle1: Stream<UpDown>, sNozzle2: Stream<UpDown>, sNozzle3: Stream<UpDown>,
     sKeypad: StreamSink<Keys>,
     sFuelPulses: StreamSink<number>,
     cCalibration: Cell<number>,
     cPrice1: CellSink<number>, cPrice2: CellSink<number>, cPrice3: CellSink<number>,
     sClearSale: Stream <Unit>
+}
+
+interface appPropsInterface extends audioProps,
+    pricePanelPropsInterface,
+    nozzlePanelProps,
+    inputPanelInterface {
+    cSaleCostLCD: Cell<string>,
+    cSaleQuantityLCD: Cell<string>
 }
 
 export {
@@ -120,9 +140,10 @@ export {
     audioProps,
     pricePropsInterface,
     priceStateInterface,
+    pricePanelPropsInterface,
     nozzleProps,
     nozzleState,
-    nozzlePanelInterface,
+    nozzlePanelProps,
     modalProps,
     LCDPropsInterface,
     LCDState,
@@ -131,5 +152,6 @@ export {
     keypadProps,
     inputPanelInterface,
     inputsInterface,
-    Optional
+    Optional,
+    appPropsInterface
 }
