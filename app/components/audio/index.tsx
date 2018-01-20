@@ -26,17 +26,19 @@ class Audio extends React.Component<audioProps,{}> {
         this.nodes = props.soundsBuffer.map((buffer, index) => makeAudioNode(props.context, buffer, !!index));
     }
 
+    playBeep() {
+        this.nodes[0].start(0);
+        const buffer = this.nodes[0].buffer || {duration: 100};
+        const timer = setTimeout(() => {
+            this.remakeSource(0);
+            clearTimeout(timer);
+        }, buffer.duration);
+    }
+
     playSound(index) {
         if (this.nodes[index] === null || this.nodes[index].buffer === null) return;
         this.nodes[index].start(0);
         this.playingSource = index;
-        const buffer = this.nodes[index].buffer || {duration: 100};
-        if (index === 0) {
-            const timer = setTimeout(() => {
-                this.remakeSource(0);
-                clearTimeout(timer);
-            }, buffer.duration);
-        }
     }
 
     stop() {
@@ -72,7 +74,7 @@ class Audio extends React.Component<audioProps,{}> {
             }
         });
         props.sBeep.listen(u => {
-            this.playSound(0);
+            this.playBeep();
         });
     }
 
