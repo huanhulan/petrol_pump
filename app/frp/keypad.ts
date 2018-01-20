@@ -1,4 +1,4 @@
-import {Unit, Cell, StreamSink, Stream, Transaction, CellLoop} from 'sodiumjs';
+import {Unit, Cell, StreamSink, Stream, CellLoop} from 'sodiumjs';
 import {Keys} from '../types'
 
 function wireKeypad(sKeypad: StreamSink<Keys>|Stream<Keys>, sClear: Stream<Unit>, cActive?: Cell<boolean>) {

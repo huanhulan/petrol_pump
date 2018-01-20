@@ -1,4 +1,4 @@
-import {Stream, Cell, CellSink, CellLoop, StreamSink, Unit, Transaction, Operational} from 'sodiumjs';
+import {Stream, Cell, CellSink, CellLoop, StreamSink, Unit, Operational} from 'sodiumjs';
 import {Keys, UpDown} from '../types'
 import {inputsInterface} from '../types';
 

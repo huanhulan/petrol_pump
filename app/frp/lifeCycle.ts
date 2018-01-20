@@ -1,4 +1,4 @@
-import {Cell, Stream, Transaction, CellLoop} from 'sodiumjs';
+import {Cell, Stream, CellLoop} from 'sodiumjs';
 import {End, Fuel, UpDown, Optional} from '../types';
 
 class LifeCycle {
