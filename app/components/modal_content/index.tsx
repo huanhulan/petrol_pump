@@ -7,11 +7,11 @@ export default function (props: modalProps) {
             <table>
                 <tr>
                     <td>Fuel</td>
-                    <td>{props.fuleType}</td>
+                    <td>{props.fuelType}</td>
                 </tr>
                 <tr>
                     <td>Price</td>
-                    <td>{props.fulePrice}</td>
+                    <td>{props.fuelPrice}</td>
                 </tr>
                 <tr>
                     <td>Dollars Delivered</td>
