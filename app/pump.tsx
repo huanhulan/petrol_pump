@@ -1,12 +1,13 @@
-import {StreamSink, Transaction} from 'sodiumjs';
+import {StreamSink, Transaction, Unit} from 'sodiumjs';
 import {
     getInput,
     wireKeypad,
     LifeCycle,
-    Outputs
+    Outputs,
+    accumulate
 } from './frp';
 import {UpDown, Fuel, Delivery} from './types';
-import {getPresetLCDStr} from './lib';
+import {getPresetLCDStr, getLCDStr} from './lib';
 
 /**
  * gather all cells and streams here
@@ -51,21 +52,25 @@ function pump() {
         const lc = new LifeCycle(inputs.sNozzle1, inputs.sNozzle2, inputs.sNozzle3);
         // get keypad
         const ke = wireKeypad(inputs.sKeypad, inputs.sClearSale);
+        // liters delivered
+        const cLitersDelivered = accumulate(lc.sStart.map(u => Unit.UNIT), inputs.sFuelPulses, inputs.cCalibration);
         // get outputs
         const outputs = new Outputs().setDelivery(lc.cFillActive.map(
             of => of === Fuel.ONE ? Delivery.FAST1 :
                 of === Fuel.TWO ? Delivery.FAST2 :
                     of === Fuel.THREE ? Delivery.FAST3 :
                         Delivery.OFF))
-            .setSaleQuantityLCD(
-                lc.cFillActive.map(
-                    of => of === Fuel.ONE ? '1' :
-                        of === Fuel.TWO ? '2' :
-                            of === Fuel.THREE ? '3' :
-                                ''
-                ))
+        // .setSaleQuantityLCD(
+        //     lc.cFillActive.map(
+        //         of => of === Fuel.ONE ? '1' :
+        //             of === Fuel.TWO ? '2' :
+        //                 of === Fuel.THREE ? '3' :
+        //                     ''
+        //     ))
             .setBeep(ke.sBeep)
-            .setPresetLCD(ke.cValue.map(v => getPresetLCDStr(v)));
+            .setPresetLCD(ke.cValue.map(v => getPresetLCDStr(v)))
+            .setSaleQuantityLCD(cLitersDelivered.map(v => getPresetLCDStr(v)));
+
         const {
             cDelivery,
             cPresetLCD,

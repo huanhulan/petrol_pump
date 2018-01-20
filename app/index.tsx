@@ -3,6 +3,8 @@ import * as ReactDOM from "react-dom";
 import * as ReactModal from 'react-modal';
 import App from './app';
 import pump from './pump';
+import {Operational} from 'sodiumjs';
+import {Delivery} from './types';
 import * as  beepClip from './assets/sounds/beep.wav';
 import * as fastRumble from './assets/sounds/fast.wav';
 import * as slowRumble from './assets/sounds/slow.wav';
@@ -26,6 +28,9 @@ const pLoadSounds = [beepClip, fastRumble, slowRumble].map(url => {
         })(url.toString());// Hack: for typescript type check
     });
 });
+// fuel pulses
+const fastPulse = 40;
+const slowPulse = 2;
 
 // main
 Promise.all(pLoadSounds).then((soundsBuffer: AudioBuffer[]) => {
@@ -49,6 +54,29 @@ Promise.all(pLoadSounds).then((soundsBuffer: AudioBuffer[]) => {
         sSaleComplete,
         cValue
     } = pump();
+
+    (function getPulse() {
+        const timer = setTimeout(() => {
+            switch (cDelivery.sample()) {
+                case Delivery.FAST1:
+                case Delivery.FAST2:
+                case Delivery.FAST3:
+                    sFuelPulses.send(fastPulse);
+                    break;
+                case Delivery.SLOW1:
+                case Delivery.SLOW2:
+                case Delivery.SLOW3:
+                    sFuelPulses.send(slowPulse);
+                    break;
+                case Delivery.OFF:
+                default:
+                    sFuelPulses.send(0);
+                    break;
+            }
+            clearTimeout(timer);
+            getPulse();
+        }, 200);
+    })();
 
     ReactDOM.render(<App
             context={context}
