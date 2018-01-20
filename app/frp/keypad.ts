@@ -5,7 +5,7 @@ function wireKeypad(sKeypad: StreamSink<Keys>|Stream<Keys>, sClear: Stream<Unit>
     if (cActive) {
         return wireKeypad(sKeypad.gate(cActive), sClear)
     }
-    // return Transaction.run(() => {
+
     const cValue = new CellLoop<number>();
     const sKeyUpdate = sKeypad.snapshot(cValue, (key, value) => {
         if (key === Keys.CLEAR) {
@@ -30,7 +30,6 @@ function wireKeypad(sKeypad: StreamSink<Keys>|Stream<Keys>, sClear: Stream<Unit>
     const sBeep = sKeyUpdate.map(() => Unit.UNIT);
 
     return {sBeep, cValue};
-    // });
 }
 
 export default wireKeypad;

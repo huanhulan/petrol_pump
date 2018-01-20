@@ -10,7 +10,6 @@ export default function (priceConfigs,
                          sClick1: StreamSink<UpDown>,
                          sClick2: StreamSink<UpDown>,
                          sClick3: StreamSink<UpDown>): inputsInterface {
-    // return Transaction.run(() => {
     const [cNozzle1, cNozzle2, cNozzle3] = [sClick1, sClick2, sClick3].map(sClick => {
         const cNozzle = new CellLoop<UpDown>();
         cNozzle.loop(sClick
@@ -37,5 +36,4 @@ export default function (priceConfigs,
         cPrice1, cPrice2, cPrice3,
         sClearSale
     };
-    // });
 }
