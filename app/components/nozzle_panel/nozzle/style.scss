@@ -6,10 +6,9 @@
     background: none;
     display: block;
     width: 60%;
-    margin-left: 20%;
+    margin: $padding*2 20% 0;
     transition: transform .2s ease-out;
     .nozzle-img {
-      margin-top: $padding*2;
       width: 100%;
     }
     &:focus {
