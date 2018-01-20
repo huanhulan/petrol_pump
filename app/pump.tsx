@@ -1,13 +1,14 @@
-import {StreamSink, Transaction, Unit} from 'sodiumjs';
+import {StreamSink, Cell, Transaction, Unit} from 'sodiumjs';
 import {
     getInput,
     wireKeypad,
     LifeCycle,
     Outputs,
-    accumulate
+    accumulate,
+    getFuel
 } from './frp';
-import {UpDown, Fuel, Delivery} from './types';
-import {getPresetLCDStr, getLCDStr} from './lib';
+import {UpDown, Fuel, Delivery, Optional} from './types';
+import {getLCDStr} from './lib';
 
 /**
  * gather all cells and streams here
@@ -52,24 +53,26 @@ function pump() {
         const lc = new LifeCycle(inputs.sNozzle1, inputs.sNozzle2, inputs.sNozzle3);
         // get keypad
         const ke = wireKeypad(inputs.sKeypad, inputs.sClearSale);
-        // liters delivered
-        const cLitersDelivered = accumulate(lc.sStart.map(u => Unit.UNIT), inputs.sFuelPulses, inputs.cCalibration);
+        // get fill
+        const {cPrice, cLitersDelivered, cDollarsDelivered} = getFuel(lc.sStart.map(u => Unit.UNIT),
+            sFuelPulses,
+            cCalibration,
+            cPrice1, cPrice2, cPrice3,
+            lc.sStart
+        );
         // get outputs
         const outputs = new Outputs().setDelivery(lc.cFillActive.map(
             of => of === Fuel.ONE ? Delivery.FAST1 :
                 of === Fuel.TWO ? Delivery.FAST2 :
                     of === Fuel.THREE ? Delivery.FAST3 :
                         Delivery.OFF))
-        // .setSaleQuantityLCD(
-        //     lc.cFillActive.map(
-        //         of => of === Fuel.ONE ? '1' :
-        //             of === Fuel.TWO ? '2' :
-        //                 of === Fuel.THREE ? '3' :
-        //                     ''
-        //     ))
             .setBeep(ke.sBeep)
-            .setPresetLCD(ke.cValue.map(v => getPresetLCDStr(v)))
-            .setSaleQuantityLCD(cLitersDelivered.map(v => getPresetLCDStr(v)));
+            .setPresetLCD(ke.cValue.map(v => getLCDStr(v, 2)))
+            .setSaleCostLCD(cDollarsDelivered.map(v => getLCDStr(v, 2)))
+            .setSaleQuantityLCD(cLitersDelivered.map(v => getLCDStr(v, 2)))
+            .setPriceLCD1(getPriceLCD(lc.cFillActive, cPrice, Fuel.ONE, cPrice1, cPrice2, cPrice3))
+            .setPriceLCD2(getPriceLCD(lc.cFillActive, cPrice, Fuel.TWO, cPrice1, cPrice2, cPrice3))
+            .setPriceLCD3(getPriceLCD(lc.cFillActive, cPrice, Fuel.THREE, cPrice1, cPrice2, cPrice3));
 
         const {
             cDelivery,
@@ -104,6 +107,34 @@ function pump() {
             sSaleComplete,
             cValue
         }
+    });
+}
+
+function getPriceLCD(cFillActive: Cell<Optional<Fuel>>,
+                     cFillPrice: Cell<number>,
+                     fuel: Fuel,
+                     cPrice1, cPrice2, cPrice3): Cell<string> {
+    let cIdlePrice: Cell<Optional<number>>;
+    switch (fuel) {
+        case Fuel.ONE:
+            cIdlePrice = cPrice1;
+            break;
+        case Fuel.TWO:
+            cIdlePrice = cPrice2;
+            break;
+        case Fuel.THREE:
+            cIdlePrice = cPrice3;
+            break;
+        default:
+            cIdlePrice = new Cell(null);
+            break;
+    }
+    return cFillActive.lift3(cFillPrice, cIdlePrice, (fuelSelected, fillPrice, idlePrice) => {
+        return fuelSelected !== null
+            ? fuelSelected === fuel
+                ? getLCDStr(fillPrice)
+                : ""
+            : getLCDStr(idlePrice);
     });
 }
 

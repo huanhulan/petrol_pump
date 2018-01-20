@@ -6,8 +6,6 @@ import LCD from './components/LCD';
 import InputPanel from './components/input_panel';
 import {appPropsInterface} from './types';
 import * as style from "./style/index.scss";
-import getLCDStr from './lib/getLCDStr';
-
 
 class App extends React.Component<appPropsInterface,{}> {
     constructor(props) {
