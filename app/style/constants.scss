@@ -18,3 +18,8 @@ $logo-size: 0.28;
 $tablet-width: 768px;
 $laptop-width: 1024px;
 $L-laptop-width: 1448px;
+$button-bg: #0D52E9;
+$speed: 0.6s;
+$delay: ($speed * .5);
+$easing: cubic-bezier(.55, 0, .1, 1);
+$modal-width: 600px;

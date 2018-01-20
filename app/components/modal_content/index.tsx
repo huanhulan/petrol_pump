@@ -1,10 +1,12 @@
 import * as React from "react";
 import {modalProps} from '../../types';
+import * as style from './style.scss';
 
 export default function (props: modalProps) {
     return (
-        <div>
+        <div className={style.modalContent}>
             <table>
+                <tbody>
                 <tr>
                     <td>Fuel</td>
                     <td>{props.fuelType}</td>
@@ -21,6 +23,7 @@ export default function (props: modalProps) {
                     <td>Liters Delivered</td>
                     <td>{props.litersDelivered}</td>
                 </tr>
+                </tbody>
             </table>
         </div>
     );

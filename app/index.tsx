@@ -3,7 +3,6 @@ import * as ReactDOM from "react-dom";
 import * as ReactModal from 'react-modal';
 import App from './app';
 import pump from './pump';
-import {Operational} from 'sodiumjs';
 import {Delivery} from './types';
 import * as  beepClip from './assets/sounds/beep.wav';
 import * as fastRumble from './assets/sounds/fast.wav';
@@ -77,7 +76,7 @@ Promise.all(pLoadSounds).then((soundsBuffer: AudioBuffer[]) => {
             getPulse();
         }, 200);
     })();
-
+    ReactModal.setAppElement('#viewport');
     ReactDOM.render(<App
             context={context}
             soundsBuffer={soundsBuffer}

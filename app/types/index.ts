@@ -128,7 +128,11 @@ interface appPropsInterface extends audioProps,
     nozzlePanelProps,
     inputPanelInterface {
     cSaleCostLCD: Cell<string>,
-    cSaleQuantityLCD: Cell<string>
+    cSaleQuantityLCD: Cell<string>,
+}
+
+interface appStateInterface {
+    isModalOpen: boolean
 }
 
 export {
@@ -153,5 +157,6 @@ export {
     inputPanelInterface,
     inputsInterface,
     Optional,
-    appPropsInterface
+    appPropsInterface,
+    appStateInterface
 }
