@@ -5,7 +5,7 @@ import {pricePanelPropsInterface} from '../../types'
 
 function PricePanel(props: pricePanelPropsInterface) {
     return (
-        <div className={style['price-panel']}>
+        <div className={style.pricePanel}>
             {props.prices.map(
                 ({name, cPrice}, index) => (
                     <PriceField

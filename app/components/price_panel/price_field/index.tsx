@@ -32,9 +32,9 @@ class PriceField extends React.Component<pricePropsInterface,priceStateInterface
 
     render() {
         return (
-            <div className={style['price_container']}>
+            <div className={style.priceContainer}>
                 <label>{this.props.name}</label>
-                <input className={style['price_container__input']}
+                <input className={style.priceContainerInput}
                        type="text"
                        value={this.state.price}
                        onChange={this.onChange.bind(this)}
