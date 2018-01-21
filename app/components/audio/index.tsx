@@ -1,6 +1,6 @@
 import * as React from "react";
-import {Delivery, audioProps, Optional} from '../../types';
-import {Operational, Cell} from 'sodiumjs';
+import {Cell, Operational} from "sodiumjs";
+import {audioProps, Delivery, Optional} from "../../types";
 
 function changes(b: Cell<any>) {
     return Operational.updates(b)
@@ -16,9 +16,9 @@ function makeAudioNode(context, buffer, shouldLoop) {
     return source;
 }
 
-class Audio extends React.Component<audioProps,{}> {
-    playingSource: Optional<number>;
-    nodes: AudioBufferSourceNode[];
+class Audio extends React.Component<audioProps, {}> {
+    private playingSource: Optional<number>;
+    private nodes: AudioBufferSourceNode[];
 
     constructor(props: audioProps) {
         super(props);
@@ -26,35 +26,7 @@ class Audio extends React.Component<audioProps,{}> {
         this.nodes = props.soundsBuffer.map((buffer, index) => makeAudioNode(props.context, buffer, !!index));
     }
 
-    playBeep() {
-        this.nodes[0].start(0);
-        const buffer = this.nodes[0].buffer || {duration: 100};
-        const timer = setTimeout(() => {
-            this.remakeSource(0);
-            clearTimeout(timer);
-        }, buffer.duration);
-    }
-
-    playSound(index) {
-        if (this.nodes[index] === null || this.nodes[index].buffer === null) return;
-        this.nodes[index].start(0);
-        this.playingSource = index;
-    }
-
-    stop() {
-        const index = this.playingSource;
-        if (index === null) return;
-        this.nodes[index].stop();
-        this.remakeSource(index);
-        this.playingSource = null;
-    }
-
-    remakeSource(index) {
-        this.nodes[index] = makeAudioNode(this.props.context,
-            this.props.soundsBuffer[index], !!index);
-    }
-
-    componentDidMount() {
+    public componentDidMount() {
         const props = this.props;
         changes(props.cDelivery).listen(d => {
             switch (d) {
@@ -78,12 +50,44 @@ class Audio extends React.Component<audioProps,{}> {
         });
     }
 
-    shouldComponentUpdate() {
+    public shouldComponentUpdate() {
         return false;
     }
 
-    render() {
+    public render() {
         return null;
+    }
+
+    private playBeep() {
+        this.nodes[0].start(0);
+        const buffer = this.nodes[0].buffer || {duration: 100};
+        const timer = setTimeout(() => {
+            this.remakeSource(0);
+            clearTimeout(timer);
+        }, buffer.duration);
+    }
+
+    private playSound(index) {
+        if (this.nodes[index] === null || this.nodes[index].buffer === null) {
+            return;
+        }
+        this.nodes[index].start(0);
+        this.playingSource = index;
+    }
+
+    private stop() {
+        const index = this.playingSource;
+        if (index === null) {
+            return;
+        }
+        this.nodes[index].stop();
+        this.remakeSource(index);
+        this.playingSource = null;
+    }
+
+    private remakeSource(index) {
+        this.nodes[index] = makeAudioNode(this.props.context,
+            this.props.soundsBuffer[index], !!index);
     }
 }
 
