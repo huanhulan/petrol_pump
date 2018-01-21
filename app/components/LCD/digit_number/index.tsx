@@ -1,6 +1,6 @@
 import * as React from "react";
-import {svgPropsInterface, digitPropsInterface} from '../../../types';
-import * as style from './style.scss';
+import {digitPropsInterface, svgPropsInterface} from "../../../types";
+import * as style from "./style.scss";
 
 function DigitNumber(props: digitPropsInterface) {
     const digits = [
@@ -13,7 +13,7 @@ function DigitNumber(props: digitPropsInterface) {
         [0, 1, 1, 1, 1, 1, 1],
         [1, 1, 0, 0, 1, 0, 0],
         [1, 1, 1, 1, 1, 1, 1],
-        [1, 1, 1, 1, 1, 1, 0]
+        [1, 1, 1, 1, 1, 1, 0],
     ];
     const points = [
         "48 38 44 42 40 38 40 10 44 6 48 10 48 38",
@@ -22,7 +22,7 @@ function DigitNumber(props: digitPropsInterface) {
         "38 40 42 44 38 48 10 48 6 44 10 40 38 40",
         "48 78 44 82 40 78 40 50 44 46 48 50 48 78",
         "38 80 42 84 38 88 10 88 6 84 10 80 38 80",
-        "8 78 4 82 0 78 0 50 4 46 8 50 8 78"
+        "8 78 4 82 0 78 0 50 4 46 8 50 8 78",
     ];
 
     const isDigitOn = (index) => {
@@ -42,10 +42,10 @@ function DigitNumber(props: digitPropsInterface) {
                 return (<polygon
                     key={index}
                     className={isDigitOn(index)}
-                    points={points[index]}/>)
+                    points={points[index]}/>);
             })}
         </svg>
-    )
+    );
 }
 
 function Dot(props: svgPropsInterface) {
@@ -58,7 +58,7 @@ function Dot(props: svgPropsInterface) {
              viewBox="0 0 8 8">
             <circle cx="4" cy="4" r="4" className={style.dotsOn}/>
         </svg>
-    )
+    );
 }
 
-export {Dot, DigitNumber}
+export {Dot, DigitNumber};
