@@ -1,28 +1,28 @@
 import * as React from "react";
-import {inputPanelInterface} from '../../types';
-import LCD from '../LCD';
-import Keypad from './keypad';
+import {inputPanelInterface} from "../../types";
+import LCD from "../LCD";
+import Keypad from "./keypad";
 
-class InputPanel extends React.Component<inputPanelInterface,{}> {
+class InputPanel extends React.Component<inputPanelInterface, {}> {
     constructor(props: inputPanelInterface) {
         super(props);
     }
 
-    shouldComponentUpdate() {
+    public shouldComponentUpdate() {
         return false;
     }
 
-    onClick(key) {
+    public onClick(key) {
         return this.props.sKeypad.send(key);
     }
 
-    render() {
+    public render() {
         return (
             <div>
                 <LCD name="preset" cPresetLCD={this.props.cPresetLCD}/>
                 <Keypad onClick={this.onClick.bind(this)}/>
             </div>
-        )
+        );
     }
 }
 
