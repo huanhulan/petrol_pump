@@ -42,7 +42,7 @@ class LCD extends React.Component<LCDPropsInterface,LCDState> {
                      className={style.lcdPanel}
                      width={`${getWidth()}px`}
                      height={`${digitHeight}px`}>
-                    {~dotIndex ? <Dot x={getDigitX(dotIndex)-12} y={80}/> : null}
+                    {~dotIndex ? <Dot x={getDigitX(dotIndex)-18} y={80}/> : null}
                     {
                         numArr.map((str, index) => {
                             return (
