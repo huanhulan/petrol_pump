@@ -7,7 +7,7 @@ import * as style from './style.scss';
 import {nozzlePanelProps, nozzleProps} from "../../types";
 
 class NozzlePanel extends React.Component<nozzlePanelProps,{}> {
-    private nozzles: nozzleProps[]
+    private nozzles: nozzleProps[];
 
     constructor(props) {
         super(props);
@@ -25,10 +25,10 @@ class NozzlePanel extends React.Component<nozzlePanelProps,{}> {
 
     render() {
         return (
-            <div className={style['nozzle-panel']}>
+            <div className={style.nozzlePanel}>
                 {
                     this.nozzles.map(({name, src, cNozzle, sClick, cPriceLCD}, index) => (
-                        <div className={style['nozzle-container']} key={index}>
+                        <div className={style.nozzleContainer} key={index}>
                             <Nozzle
                                 sClick={sClick}
                                 cPriceLCD={cPriceLCD}
