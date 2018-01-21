@@ -1,36 +1,29 @@
 import * as React from "react";
-import {pricePropsInterface, priceStateInterface} from '../../../types';
-import * as style from './style.scss';
+import {pricePropsInterface, priceStateInterface} from "../../../types";
+import * as style from "./style.scss";
 
 const parseDbl = v => {
     const tmp = parseFloat(v);
     return isNaN(tmp) ? 0 : tmp;
 };
 
-
-class PriceField extends React.Component<pricePropsInterface,priceStateInterface> {
+class PriceField extends React.Component<pricePropsInterface, priceStateInterface> {
     constructor(props) {
         super(props);
         this.state = {
-            price: props.cPrice.sample()
+            price: props.cPrice.sample(),
         };
     }
 
-    componentDidMount() {
+    public componentDidMount() {
         this.props.cPrice.listen(v => this.setState({price: v}));
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
+    public shouldComponentUpdate(nextProps, nextState) {
         return !(nextState.price === this.state.price);
     }
 
-    onChange(e) {
-        let newPrice = parseDbl(e.target.value);
-
-        return this.props.cPrice.send(newPrice);
-    };
-
-    render() {
+    public render() {
         return (
             <div className={style.priceContainer}>
                 <label>{this.props.name}</label>
@@ -41,6 +34,10 @@ class PriceField extends React.Component<pricePropsInterface,priceStateInterface
                        autoComplete="off"/>
             </div>
         );
+    }
+
+    private onChange(e) {
+        return this.props.cPrice.send(parseDbl(e.target.value));
     }
 }
 
