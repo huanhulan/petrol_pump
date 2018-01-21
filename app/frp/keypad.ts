@@ -1,9 +1,9 @@
-import {Unit, Cell, StreamSink, Stream, CellLoop} from 'sodiumjs';
-import {Keys} from '../types'
+import {Cell, CellLoop, Stream, StreamSink, Unit} from "sodiumjs";
+import {Keys} from "../types";
 
 function wireKeypad(sKeypad: StreamSink<Keys>|Stream<Keys>, sClear: Stream<Unit>, cActive?: Cell<boolean>) {
     if (cActive) {
-        return wireKeypad(sKeypad.gate(cActive), sClear)
+        return wireKeypad(sKeypad.gate(cActive), sClear);
     }
 
     const cValue = new CellLoop<number>();
@@ -23,7 +23,7 @@ function wireKeypad(sKeypad: StreamSink<Keys>|Stream<Keys>, sClear: Stream<Unit>
                                         key === Keys.SIX ? tmp + 6 :
                                             key === Keys.SEVEN ? tmp + 7 :
                                                 key === Keys.EIGHT ? tmp + 8 :
-                                                    tmp + 9)
+                                                    tmp + 9);
         }
     }).filterNotNull() as Stream<number>;
     cValue.loop(sKeyUpdate.orElse(sClear.map(u => 0)).hold(0));
