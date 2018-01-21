@@ -1,9 +1,9 @@
-import PriceField from './price_field';
 import * as React from "react";
-import * as style from './style.scss';
-import {pricePanelPropsInterface} from '../../types'
+import {pricePanelPropsInterface} from "../../types";
+import PriceField from "./price_field";
+import * as style from "./style.scss";
 
-function PricePanel(props: pricePanelPropsInterface) {
+export default function PricePanel(props: pricePanelPropsInterface) {
     return (
         <div className={style.pricePanel}>
             {props.prices.map(
@@ -13,10 +13,8 @@ function PricePanel(props: pricePanelPropsInterface) {
                         key={index}
                         cPrice={cPrice}
                     />
-                )
+                ),
             )}
         </div>
-    )
+    );
 }
-
-export default PricePanel;
