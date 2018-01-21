@@ -1,4 +1,4 @@
-import getLCDStr from './getLCDStr'
-import Sale from './sale';
+import getLCDStr from "./getLCDStr";
+import Sale from "./sale";
 
-export {Sale, getLCDStr}
+export {Sale, getLCDStr};
