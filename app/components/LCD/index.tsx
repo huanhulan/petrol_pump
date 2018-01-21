@@ -36,10 +36,10 @@ class LCD extends React.Component<LCDPropsInterface,LCDState> {
 
 
         return (
-            <div className={style['LCD-container']}>
+            <div className={style.lcdContainer}>
                 <svg viewBox={`0 0 ${getWidth()} ${digitHeight}`}
                      preserveAspectRatio="xMidYMid meet"
-                     className={style['LCD-panel']}
+                     className={style.lcdPanel}
                      width={`${getWidth()}px`}
                      height={`${digitHeight}px`}>
                     {~dotIndex ? <Dot x={getDigitX(dotIndex)-12} y={80}/> : null}
@@ -53,7 +53,7 @@ class LCD extends React.Component<LCDPropsInterface,LCDState> {
                         })
                     }
                 </svg>
-                <p className={style['LCD-title']}>{String.prototype.toUpperCase.call(this.props.name)}</p>
+                <p className={style.lcdTitle}>{String.prototype.toUpperCase.call(this.props.name)}</p>
             </div>
 
         )
