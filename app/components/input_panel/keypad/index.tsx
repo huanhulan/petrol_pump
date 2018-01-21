@@ -1,10 +1,10 @@
 import * as React from "react";
-import {Keys, keypadProps} from '../../../types'
-import * as style from './style.scss';
+import {keypadProps, Keys} from "../../../types";
+import * as style from "./style.scss";
 
-export default function (props: keypadProps) {
+function Keypad(props: keypadProps) {
     function onClickFactory(key) {
-        return () => props.onClick(key)
+        return () => props.onClick(key);
     }
 
     return (
@@ -21,13 +21,16 @@ export default function (props: keypadProps) {
                     Keys.EIGHT,
                     Keys.NINE,
                     Keys.ZERO,
-                    Keys.CLEAR
+                    Keys.CLEAR,
                 ].map((key, index) => (
-                    <button className={style.button} onClick={onClickFactory(key)} key={key}>
-                        {key === Keys.CLEAR ? Keys[10] : key}
-                    </button>)
+                        <button className={style.button} onClick={onClickFactory(key)} key={key}>
+                            {key === Keys.CLEAR ? Keys[10] : key}
+                        </button>
+                    ),
                 )
             }
         </div>
-    )
+    );
 }
+
+export default Keypad;
