@@ -1,15 +1,14 @@
-import {Stream, Cell, CellSink, CellLoop, StreamSink, Unit, Operational} from 'sodiumjs';
-import {Keys, UpDown} from '../types'
-import {inputsInterface} from '../types';
+import {Cell, CellLoop, CellSink, Operational, Stream, StreamSink, Unit} from "sodiumjs";
+import {inputsInterface, Keys, UpDown} from "../types";
 
 const pricePropsFactory = ({price}) => {
     return new CellSink<number>(price);
 };
 
-export default function (priceConfigs,
-                         sClick1: StreamSink<UpDown>,
-                         sClick2: StreamSink<UpDown>,
-                         sClick3: StreamSink<UpDown>): inputsInterface {
+export default function getInputs(priceConfigs,
+                                  sClick1: StreamSink<UpDown>,
+                                  sClick2: StreamSink<UpDown>,
+                                  sClick3: StreamSink<UpDown>): inputsInterface {
     const [cNozzle1, cNozzle2, cNozzle3] = [sClick1, sClick2, sClick3].map(sClick => {
         const cNozzle = new CellLoop<UpDown>();
         cNozzle.loop(sClick
@@ -34,6 +33,6 @@ export default function (priceConfigs,
         sFuelPulses,
         cCalibration,
         cPrice1, cPrice2, cPrice3,
-        sClearSale, csClearSale
+        sClearSale, csClearSale,
     };
 }
