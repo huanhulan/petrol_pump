@@ -2,7 +2,6 @@ import * as React from "react";
 import {keypadProps, Keys} from "../../../types";
 import * as style from "./style.scss";
 
-
 export default function Keypad(props: keypadProps) {
     function onClickFactory(key) {
         return () => props.onClick(key);
