@@ -1,6 +1,6 @@
-import {Unit, Cell, Stream} from 'sodiumjs';
-import {Delivery} from '../types';
-import Sale from '../lib/sale';
+import {Cell, Stream, Unit} from "sodiumjs";
+import Sale from "../lib/sale";
+import {Delivery} from "../types";
 
 class Outputs {
     public cDelivery: Cell<Delivery>;
@@ -25,49 +25,49 @@ class Outputs {
         this.sSaleComplete = new Stream<Sale>();
     }
 
-    setDelivery(delivery: Cell<Delivery>) {
+    public setDelivery(delivery: Cell<Delivery>) {
         this.cDelivery = delivery;
-        return <Outputs>this;
+        return this as Outputs;
     }
 
-    setPresetLCD(presetLCD: Cell<string>) {
+    public setPresetLCD(presetLCD: Cell<string>) {
         this.cPresetLCD = presetLCD;
-        return <Outputs>this;
+        return this as Outputs;
     }
 
-    setSaleCostLCD(saleCostLCD: Cell<string>) {
+    public setSaleCostLCD(saleCostLCD: Cell<string>) {
         this.cSaleCostLCD = saleCostLCD;
-        return <Outputs>this;
+        return this as Outputs;
     }
 
-    setSaleQuantityLCD(saleQuantityLCD: Cell<string>) {
+    public setSaleQuantityLCD(saleQuantityLCD: Cell<string>) {
         this.cSaleQuantityLCD = saleQuantityLCD;
-        return <Outputs>this;
+        return this as Outputs;
     }
 
-    setPriceLCD1(priceLCD1: Cell<string>) {
+    public setPriceLCD1(priceLCD1: Cell<string>) {
         this.cPriceLCD1 = priceLCD1;
-        return <Outputs>this;
+        return this as Outputs;
     }
 
-    setPriceLCD2(priceLCD2: Cell<string>) {
+    public setPriceLCD2(priceLCD2: Cell<string>) {
         this.cPriceLCD2 = priceLCD2;
-        return <Outputs>this;
+        return this as Outputs;
     }
 
-    setPriceLCD3(priceLCD3: Cell<string>) {
+    public setPriceLCD3(priceLCD3: Cell<string>) {
         this.cPriceLCD3 = priceLCD3;
-        return <Outputs>this;
+        return this as Outputs;
     }
 
-    setBeep(sBeep: Stream<Unit>) {
+    public setBeep(sBeep: Stream<Unit>) {
         this.sBeep = sBeep;
-        return <Outputs>this;
+        return this as Outputs;
     }
 
-    setSaleComplete(sSaleComplete: Stream<Sale>) {
+    public setSaleComplete(sSaleComplete: Stream<Sale>) {
         this.sSaleComplete = sSaleComplete;
-        return <Outputs>this;
+        return this as Outputs;
     }
 }
 
