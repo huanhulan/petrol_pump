@@ -1,10 +1,10 @@
-import LifeCycle from './lifeCycle';
-import Outputs from './outputs';
-import getInput from './input';
-import wireKeypad from './keypad';
-import accumulate from './accumulatePulses';
-import getFuel from './fill';
-import getNotifyPointOfSale from './notifyPointOfSale';
+import accumulate from "./accumulatePulses";
+import getFuel from "./fill";
+import getInput from "./input";
+import wireKeypad from "./keypad";
+import LifeCycle from "./lifeCycle";
+import getNotifyPointOfSale from "./notifyPointOfSale";
+import Outputs from "./outputs";
 
 export {
     getInput,
@@ -13,5 +13,5 @@ export {
     Outputs,
     accumulate,
     getFuel,
-    getNotifyPointOfSale
+    getNotifyPointOfSale,
 };
