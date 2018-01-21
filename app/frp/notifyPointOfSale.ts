@@ -1,11 +1,11 @@
 import {Cell, CellLoop, Stream, Unit} from "sodiumjs";
 import {Sale} from "../lib";
-import {End, fillInterface, Fuel, Optional, Phase} from "../types";
+import {End, IFillInterface, Fuel, Optional, Phase} from "../types";
 import LifeCycle from "./lifeCycle";
 
 export default function getNotifyPointOfSale(lc: LifeCycle,
                                              sClearSale: Stream<Unit>, {cPrice, cLitersDelivered, cDollarsDelivered}
-        : fillInterface) {
+        : IFillInterface) {
     const cPhase = new CellLoop<Phase>();
     const sStart: Stream<Fuel> = lc.sStart.gate(cPhase.map(p => p === Phase.IDLE));
     const sEnd: Stream<End> = lc.sEnd.gate(cPhase.map(p => p === Phase.FILLING));

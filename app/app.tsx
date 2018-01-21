@@ -8,7 +8,7 @@ import ModalContent from "./components/modal_content";
 import NozzlePanel from "./components/nozzle_panel";
 import PricePanel from "./components/price_panel";
 import * as style from "./style/index.scss";
-import {appPropsInterface, appStateInterface, Fuel, saleInterface} from "./types";
+import {IAppPropsInterface, IAppStateInterface, Fuel, ISaleInterface} from "./types";
 
 const crossPath = "M15.898,\
                                   4.045c-0.271-0.272-0.713-0.272-0.986,0l-4.71,\
@@ -21,13 +21,13 @@ const crossPath = "M15.898,\
                                   0-0.986l-4.711-4.711l4.711-4.711C16.172,\
                                   4.759,16.172,4.317,15.898,4.045z";
 
-class App extends React.Component<appPropsInterface, appStateInterface> {
+class App extends React.Component<IAppPropsInterface, IAppStateInterface> {
     private sCloseModal: StreamSink<Unit>;
 
     constructor(props) {
         super(props);
         this.state = {isModalOpen: false, sale: null};
-        this.props.sSaleComplete.listen((sale: saleInterface) => {
+        this.props.sSaleComplete.listen((sale: ISaleInterface) => {
             this.setState({
                 isModalOpen: true,
                 sale,
@@ -56,10 +56,10 @@ class App extends React.Component<appPropsInterface, appStateInterface> {
                         </svg>
                     </a>
                     {this.state.sale !== null
-                        ? (<ModalContent fuelType={Fuel[(this.state.sale as saleInterface).fuel]}
-                                         fuelPrice={(this.state.sale as saleInterface).price.toFixed(3)}
-                                         dollarsDelivered={(this.state.sale as saleInterface).cost.toFixed(2)}
-                                         litersDelivered={(this.state.sale as saleInterface).quantity.toFixed(2)}/>)
+                        ? (<ModalContent fuelType={Fuel[(this.state.sale as ISaleInterface).fuel]}
+                                         fuelPrice={(this.state.sale as ISaleInterface).price.toFixed(3)}
+                                         dollarsDelivered={(this.state.sale as ISaleInterface).cost.toFixed(2)}
+                                         litersDelivered={(this.state.sale as ISaleInterface).quantity.toFixed(2)}/>)
                         : null}
                 </ReactModal>
                 <Audio context={this.props.context} soundsBuffer={this.props.soundsBuffer}

@@ -1,8 +1,8 @@
 import * as React from "react";
-import {digitPropsInterface, svgPropsInterface} from "../../../types";
+import {IDigitPropsInterface, ISvgPropsInterface} from "../../../types";
 import * as style from "./style.scss";
 
-function DigitNumber(props: digitPropsInterface) {
+function DigitNumber(props: IDigitPropsInterface) {
     const digits = [
         [1, 1, 1, 0, 1, 1, 1],
         [1, 0, 0, 0, 1, 0, 0],
@@ -48,7 +48,7 @@ function DigitNumber(props: digitPropsInterface) {
     );
 }
 
-function Dot(props: svgPropsInterface) {
+function Dot(props: ISvgPropsInterface) {
     return (
         <svg xmlns="http://www.w3.org/2000/svg"
              width="8px"

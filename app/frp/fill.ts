@@ -1,5 +1,5 @@
 import {Cell, Stream, Unit} from "sodiumjs";
-import {fillInterface, Fuel} from "../types";
+import {IFillInterface, Fuel} from "../types";
 import accumulatePulses from "./accumulatePulses";
 
 function capturePrice(sStart: Stream<Fuel>,
@@ -15,7 +15,7 @@ function capturePrice(sStart: Stream<Fuel>,
 
 export default (sClearAccumulator: Stream<Unit>, sFuelPulses: Stream<number>, cCalibration: Cell<number>,
                 cPrice1: Cell<number>, cPrice2: Cell<number>, cPrice3: Cell<number>,
-                sStart: Stream<Fuel>): fillInterface => {
+                sStart: Stream<Fuel>): IFillInterface => {
     const cPrice = capturePrice(sStart, cPrice1, cPrice2, cPrice3);
     const cLitersDelivered = accumulatePulses(sClearAccumulator, sFuelPulses, cCalibration);
     const cDollarsDelivered = cLitersDelivered.lift(cPrice, (liters, price) => liters * price);

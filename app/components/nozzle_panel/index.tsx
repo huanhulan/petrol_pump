@@ -1,13 +1,13 @@
 import * as React from "react";
-import {nozzlePanelProps, nozzleProps} from "../../types";
+import {INozzlePanelProps, INozzleProps} from "../../types";
 import * as nozzle1PNG from "./../../assets/images/nozzle1.png";
 import * as nozzle2PNG from "./../../assets/images/nozzle2.png";
 import * as nozzle3PNG from "./../../assets/images/nozzle3.png";
 import Nozzle from "./nozzle";
 import * as style from "./style.scss";
 
-class NozzlePanel extends React.Component<nozzlePanelProps, {}> {
-    private nozzles: nozzleProps[];
+class NozzlePanel extends React.Component<INozzlePanelProps, {}> {
+    private nozzles: INozzleProps[];
 
     constructor(props) {
         super(props);

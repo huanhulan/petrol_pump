@@ -1,6 +1,6 @@
 import * as React from "react";
 import {Cell, Operational} from "sodiumjs";
-import {audioProps, Delivery, Optional} from "../../types";
+import {IAudioProps, Delivery, Optional} from "../../types";
 
 function changes(b: Cell<any>) {
     return Operational.updates(b)
@@ -16,11 +16,11 @@ function makeAudioNode(context, buffer, shouldLoop) {
     return source;
 }
 
-class Audio extends React.Component<audioProps, {}> {
+class Audio extends React.Component<IAudioProps, {}> {
     private playingSource: Optional<number>;
     private nodes: AudioBufferSourceNode[];
 
-    constructor(props: audioProps) {
+    constructor(props: IAudioProps) {
         super(props);
         this.playingSource = null;
         this.nodes = props.soundsBuffer.map((buffer, index) => makeAudioNode(props.context, buffer, !!index));

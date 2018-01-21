@@ -1,21 +1,14 @@
-import {Stream, Cell, CellSink, CellLoop, StreamSink, Unit} from 'sodiumjs';
+import {Cell, CellLoop, CellSink, Stream, StreamSink, Unit} from "sodiumjs";
 type Optional<A> = A|null;
 
-interface saleInterface {
-    fuel: Fuel;
-    price: number;
-    cost: number;
-    quantity: number;
-}
-
-enum Delivery{
+enum Delivery {
     OFF,
     SLOW1,
     FAST1,
     SLOW2,
     FAST2,
     SLOW3,
-    FAST3
+    FAST3,
 }
 
 enum UpDown {
@@ -26,10 +19,10 @@ enum UpDown {
 enum Fuel {
     ONE,
     TWO,
-    THREE
+    THREE,
 }
 
-enum Keys{
+enum Keys {
     ZERO,
     ONE,
     TWO,
@@ -40,116 +33,130 @@ enum Keys{
     SEVEN,
     EIGHT,
     NINE,
-    CLEAR
+    CLEAR,
 }
 
 enum End { END }
 
-enum Phase{ IDLE, FILLING, POS }
+enum Phase { IDLE, FILLING, POS }
 
-interface audioProps {
-    cDelivery: Cell<Delivery>,
-    sBeep: Stream<Unit>
-    context: AudioContext,
-    soundsBuffer: AudioBuffer[]
-}
-
-interface priceStateInterface {
-    price: number
+interface ISaleInterface {
+    fuel: Fuel;
+    price: number;
+    cost: number;
+    quantity: number;
 }
 
-interface pricePropsInterface {
-    name: string,
-    cPrice: CellSink<number>
+interface IAudioProps {
+    cDelivery: Cell<Delivery>;
+    sBeep: Stream<Unit>;
+    context: AudioContext;
+    soundsBuffer: AudioBuffer[];
 }
 
-interface pricePanelPropsInterface {
-    prices: pricePropsInterface[]
+interface IPriceStateInterface {
+    price: number;
 }
 
-interface nozzleProps {
-    cPriceLCD: Cell<string>,
-    name: string,
-    src: string,
-    cNozzle: CellLoop<UpDown>,
-    sClick: StreamSink<UpDown>
+interface IPricePropsInterface {
+    name: string;
+    cPrice: CellSink<number>;
 }
 
-interface nozzleState {
-    direction: UpDown
+interface IPricePanelPropsInterface {
+    prices: IPricePropsInterface[];
 }
 
-interface nozzlePanelProps {
-    cPriceLCDs: Cell<string>[],
-    cNozzles: CellLoop<UpDown>[],
-    sClicks: StreamSink<UpDown>[],
+interface INozzleProps {
+    cPriceLCD: Cell<string>;
+    name: string;
+    src: string;
+    cNozzle: CellLoop<UpDown>;
+    sClick: StreamSink<UpDown>;
 }
 
-interface modalProps {
-    fuelType: string,
-    fuelPrice: string,
-    dollarsDelivered: string,
-    litersDelivered: string
+interface INozzleState {
+    direction: UpDown;
 }
 
-interface LCDPropsInterface {
-    cPresetLCD: Cell<string>,
-    name: string
-}
-interface LCDState {
-    val: string
+interface INozzlePanelProps {
+    cPriceLCDs: Array<Cell<string>>;
+    cNozzles: Array<CellLoop<UpDown>>;
+    sClicks: Array<StreamSink<UpDown>>;
 }
 
-interface svgPropsInterface {
-    x: number,
-    y: number
-}
-interface digitPropsInterface extends svgPropsInterface {
-    val: number
-}
-
-interface keypadProps {
-    onClick: (Keys) => any
+interface IModalProps {
+    fuelType: string;
+    fuelPrice: string;
+    dollarsDelivered: string;
+    litersDelivered: string;
 }
 
-interface inputPanelInterface {
-    sClear: Stream<Unit>,
-    cActive?: Cell<boolean>,
+interface ILCDPropsInterface {
+    cPresetLCD: Cell<string>;
+    name: string;
+}
+interface ILCDState {
+    val: string;
+}
+
+interface ISvgPropsInterface {
+    x: number;
+    y: number;
+}
+interface IDigitPropsInterface extends ISvgPropsInterface {
+    val: number;
+}
+
+interface IKeypadProps {
+    onClick: (Keys) => any;
+}
+
+interface IInputPanelInterface {
+    sClear: Stream<Unit>;
+    cActive?: Cell<boolean>;
     cValue: CellLoop<number>;
     sBeep: Stream<Unit>;
     sKeypad: StreamSink<Keys>;
-    cPresetLCD: Cell<string>
+    cPresetLCD: Cell<string>;
 }
 
-interface inputsInterface {
-    cNozzle1: CellLoop<UpDown>, cNozzle2: CellLoop<UpDown>, cNozzle3: CellLoop<UpDown>,
-    sNozzle1: Stream<UpDown>, sNozzle2: Stream<UpDown>, sNozzle3: Stream<UpDown>,
-    sKeypad: StreamSink<Keys>,
-    sFuelPulses: StreamSink<number>,
-    cCalibration: Cell<number>,
-    cPrice1: CellSink<number>, cPrice2: CellSink<number>, cPrice3: CellSink<number>,
-    sClearSale: Stream <Unit>,csClearSale: CellSink<Stream<Unit>>
+interface IInputsInterface {
+    cNozzle1: CellLoop<UpDown>;
+    cNozzle2: CellLoop<UpDown>;
+    cNozzle3: CellLoop<UpDown>;
+    sNozzle1: Stream<UpDown>;
+    sNozzle2: Stream<UpDown>;
+    sNozzle3: Stream<UpDown>;
+    sKeypad: StreamSink<Keys>;
+    sFuelPulses: StreamSink<number>;
+    cCalibration: Cell<number>;
+    cPrice1: CellSink<number>;
+    cPrice2: CellSink<number>;
+    cPrice3: CellSink<number>;
+    sClearSale: Stream <Unit>;
+    csClearSale: CellSink<Stream<Unit>>;
 }
 
-interface fillInterface {
-    cPrice: Cell<number>,
-    cLitersDelivered: Cell<number>,
-    cDollarsDelivered: Cell<number>
+interface IFillInterface {
+    cPrice: Cell<number>;
+    cLitersDelivered: Cell<number>;
+    cDollarsDelivered: Cell<number>;
 }
 
-interface appPropsInterface extends audioProps,
-    pricePanelPropsInterface,
-    nozzlePanelProps,
-    inputPanelInterface {
-    cSaleCostLCD: Cell<string>,
-    cSaleQuantityLCD: Cell<string>,
-    sSaleComplete: Stream<saleInterface>,
-    csClearSale: CellSink<Stream<Unit>>
+interface IAppPropsInterface extends IAudioProps,
+    IPricePanelPropsInterface,
+    INozzlePanelProps,
+    IInputPanelInterface {
+    cSaleCostLCD: Cell<string>;
+    cSaleQuantityLCD: Cell<string>;
+    sSaleComplete: Stream<ISaleInterface>;
+    csClearSale: CellSink<Stream<Unit>>;
 }
 
-interface appStateInterface {
-    isModalOpen: boolean,
-    sale: Optional<saleInterface>
+interface IAppStateInterface {
+    isModalOpen: boolean;
+    sale: Optional<ISaleInterface>;
 }
 
 export {
@@ -159,24 +166,24 @@ export {
     Keys,
     End,
     Phase,
-    audioProps,
-    pricePropsInterface,
-    priceStateInterface,
-    pricePanelPropsInterface,
-    nozzleProps,
-    nozzleState,
-    nozzlePanelProps,
-    modalProps,
-    LCDPropsInterface,
-    LCDState,
-    svgPropsInterface,
-    digitPropsInterface,
-    keypadProps,
-    inputPanelInterface,
-    inputsInterface,
-    fillInterface,
+    IAudioProps,
+    IPricePropsInterface,
+    IPriceStateInterface,
+    IPricePanelPropsInterface,
+    INozzleProps,
+    INozzleState,
+    INozzlePanelProps,
+    IModalProps,
+    ILCDPropsInterface,
+    ILCDState,
+    ISvgPropsInterface,
+    IDigitPropsInterface,
+    IKeypadProps,
+    IInputPanelInterface,
+    IInputsInterface,
+    IFillInterface,
     Optional,
-    appPropsInterface,
-    appStateInterface,
-    saleInterface
-}
+    IAppPropsInterface,
+    IAppStateInterface,
+    ISaleInterface,
+};

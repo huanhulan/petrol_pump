@@ -1,5 +1,5 @@
 import * as React from "react";
-import {LCDPropsInterface, LCDState} from "../../types";
+import {ILCDPropsInterface, ILCDState} from "../../types";
 import {DigitNumber, Dot} from "./digit_number";
 import * as style from "./style.scss";
 
@@ -7,7 +7,7 @@ const digitWidth = 48;
 const digitHeight = 88;
 const dotWidth = 8;
 
-class LCD extends React.Component<LCDPropsInterface, LCDState> {
+class LCD extends React.Component<ILCDPropsInterface, ILCDState> {
     constructor(props) {
         super(props);
         this.state = {

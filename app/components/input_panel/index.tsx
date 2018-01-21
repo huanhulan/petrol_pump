@@ -1,10 +1,10 @@
 import * as React from "react";
-import {inputPanelInterface} from "../../types";
+import {IInputPanelInterface} from "../../types";
 import LCD from "../LCD";
 import Keypad from "./keypad";
 
-class InputPanel extends React.Component<inputPanelInterface, {}> {
-    constructor(props: inputPanelInterface) {
+class InputPanel extends React.Component<IInputPanelInterface, {}> {
+    constructor(props: IInputPanelInterface) {
         super(props);
     }
 

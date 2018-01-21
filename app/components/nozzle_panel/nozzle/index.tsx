@@ -1,10 +1,10 @@
 import * as React from "react";
-import {nozzleProps, nozzleState, UpDown} from "../../../types";
+import {INozzleProps, INozzleState, UpDown} from "../../../types";
 import LCD from "./../../LCD";
 import * as style from "./style.scss";
 
-class Nozzle extends React.Component<nozzleProps, nozzleState> {
-    constructor(props: nozzleProps) {
+class Nozzle extends React.Component<INozzleProps, INozzleState> {
+    constructor(props: INozzleProps) {
         super(props);
         this.state = {
             direction: this.props.cNozzle.sample(),
