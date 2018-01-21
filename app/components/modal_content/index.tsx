@@ -1,8 +1,8 @@
 import * as React from "react";
-import {modalProps} from '../../types';
-import * as style from './style.scss';
+import {modalProps} from "../../types";
+import * as style from "./style.scss";
 
-export default function (props: modalProps) {
+export default function ModalContent(props: modalProps) {
     return (
         <div className={style.modalContent}>
             <table>
