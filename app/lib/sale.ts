@@ -1,4 +1,5 @@
-import {Fuel, saleInterface} from '../types'
+import {Fuel, saleInterface} from "../types";
+
 class Sale implements saleInterface {
     public fuel: Fuel;
     public price: number;
