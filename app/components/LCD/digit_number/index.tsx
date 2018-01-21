@@ -56,7 +56,7 @@ function Dot(props: svgPropsInterface) {
              x={`${props.x}px`}
              y={`${props.y}px`}
              viewBox="0 0 8 8">
-            <circle cx="4" cy="4" r="4" className={style['dots-on']}/>
+            <circle cx="4" cy="4" r="4" className={style.dotsOn}/>
         </svg>
     )
 }
