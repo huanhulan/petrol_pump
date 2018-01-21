@@ -6,6 +6,11 @@
   "jsRules": {},
   "rules": {
     "no-unused-variable": false,
+    "no-bitwise": false,
+    "arrow-parens": [
+      true,
+      "ban-single-arg-parens"
+    ],
     "one-line": [
       true,
       "check-open-brace",

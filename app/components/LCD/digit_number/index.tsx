@@ -25,7 +25,7 @@ function DigitNumber(props: digitPropsInterface) {
         "8 78 4 82 0 78 0 50 4 46 8 50 8 78",
     ];
 
-    const isDigitOn = (index) => {
+    const isDigitOn = index => {
         return digits[props.val] && digits[props.val][index]
             ? style.dotsOn
             : style.dotsOff;
