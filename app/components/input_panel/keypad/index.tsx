@@ -2,7 +2,8 @@ import * as React from "react";
 import {keypadProps, Keys} from "../../../types";
 import * as style from "./style.scss";
 
-function Keypad(props: keypadProps) {
+
+export default function Keypad(props: keypadProps) {
     function onClickFactory(key) {
         return () => props.onClick(key);
     }
@@ -32,5 +33,3 @@ function Keypad(props: keypadProps) {
         </div>
     );
 }
-
-export default Keypad;
