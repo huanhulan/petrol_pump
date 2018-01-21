@@ -1,14 +1,10 @@
-import {Cell, Stream, CellLoop} from 'sodiumjs';
-import {End, Fuel, UpDown, Optional} from '../types';
+import {Cell, CellLoop, Stream} from "sodiumjs";
+import {End, Fuel, Optional, UpDown} from "../types";
 
 class LifeCycle {
-    public sStart: Stream<Fuel>;
-    public cFillActive: Cell<Optional<Fuel>>;
-    public sEnd: Stream<End>;
-
     private static whenLifted(sNozzle: Stream<UpDown>,
                               nozzleFuel: Fuel): Stream<Fuel> {
-        return sNozzle.filter(u => u == UpDown.UP)
+        return sNozzle.filter(u => u === UpDown.UP)
             .map(u => nozzleFuel);
     }
 
@@ -22,10 +18,13 @@ class LifeCycle {
             .filterNotNull() as Stream<End>;
     }
 
+    public sStart: Stream<Fuel>;
+    public cFillActive: Cell<Optional<Fuel>>;
+    public sEnd: Stream<End>;
+
     constructor(sNozzle1: Stream<UpDown>,
                 sNozzle2: Stream<UpDown>,
                 sNozzle3: Stream<UpDown>) {
-        // new Transaction.run(() => {
         const sLiftNozzle: Stream<Fuel> =
             LifeCycle.whenLifted(sNozzle1, Fuel.ONE).orElse(
                 LifeCycle.whenLifted(sNozzle2, Fuel.TWO).orElse(
@@ -35,18 +34,17 @@ class LifeCycle {
             cFillActive,
             (newFuel, fillActive) =>
                 fillActive !== null ? null
-                    : newFuel
+                    : newFuel,
         ).filterNotNull() as Stream<Fuel>;
         this.sEnd = LifeCycle.whenSetDown(sNozzle1, Fuel.ONE, cFillActive).orElse(
             LifeCycle.whenSetDown(sNozzle2, Fuel.TWO, cFillActive).orElse(
                 LifeCycle.whenSetDown(sNozzle3, Fuel.THREE, cFillActive)));
         cFillActive.loop(
-            this.sEnd.map(e => <Optional<Fuel>>null)
+            this.sEnd.map(e => null as Optional<Fuel>)
                 .orElse(this.sStart)
-                .hold(null)
+                .hold(null),
         );
         this.cFillActive = cFillActive;
-        // });
     }
 }
 
