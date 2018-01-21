@@ -2,7 +2,6 @@ import * as React from "react";
 import {inputPanelInterface} from '../../types';
 import LCD from '../LCD';
 import Keypad from './keypad';
-import * as style from './style.scss';
 
 class InputPanel extends React.Component<inputPanelInterface,{}> {
     constructor(props: inputPanelInterface) {
@@ -19,7 +18,7 @@ class InputPanel extends React.Component<inputPanelInterface,{}> {
 
     render() {
         return (
-            <div className={style['input-panel']}>
+            <div>
                 <LCD name="preset" cPresetLCD={this.props.cPresetLCD}/>
                 <Keypad onClick={this.onClick.bind(this)}/>
             </div>
