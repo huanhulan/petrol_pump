@@ -1,6 +1,12 @@
 import {Stream, Cell, CellSink, CellLoop, StreamSink, Unit} from 'sodiumjs';
-
 type Optional<A> = A|null;
+
+interface saleInterface {
+    fuel: Fuel;
+    price: number;
+    cost: number;
+    quantity: number;
+}
 
 enum Delivery{
     OFF,
@@ -38,6 +44,8 @@ enum Keys{
 }
 
 enum End { END }
+
+enum Phase{ IDLE, FILLING, POS }
 
 interface audioProps {
     cDelivery: Cell<Delivery>,
@@ -120,7 +128,13 @@ interface inputsInterface {
     sFuelPulses: StreamSink<number>,
     cCalibration: Cell<number>,
     cPrice1: CellSink<number>, cPrice2: CellSink<number>, cPrice3: CellSink<number>,
-    sClearSale: Stream <Unit>
+    sClearSale: Stream <Unit>,csClearSale: CellSink<Stream<Unit>>
+}
+
+interface fillInterface {
+    cPrice: Cell<number>,
+    cLitersDelivered: Cell<number>,
+    cDollarsDelivered: Cell<number>
 }
 
 interface appPropsInterface extends audioProps,
@@ -129,10 +143,13 @@ interface appPropsInterface extends audioProps,
     inputPanelInterface {
     cSaleCostLCD: Cell<string>,
     cSaleQuantityLCD: Cell<string>,
+    sSaleComplete: Stream<saleInterface>,
+    csClearSale: CellSink<Stream<Unit>>
 }
 
 interface appStateInterface {
-    isModalOpen: boolean
+    isModalOpen: boolean,
+    sale: Optional<saleInterface>
 }
 
 export {
@@ -141,6 +158,7 @@ export {
     Fuel,
     Keys,
     End,
+    Phase,
     audioProps,
     pricePropsInterface,
     priceStateInterface,
@@ -156,7 +174,9 @@ export {
     keypadProps,
     inputPanelInterface,
     inputsInterface,
+    fillInterface,
     Optional,
     appPropsInterface,
-    appStateInterface
+    appStateInterface,
+    saleInterface
 }

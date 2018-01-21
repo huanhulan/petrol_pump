@@ -4,6 +4,7 @@ import getInput from './input';
 import wireKeypad from './keypad';
 import accumulate from './accumulatePulses';
 import getFuel from './fill';
+import getNotifyPointOfSale from './notifyPointOfSale';
 
 export {
     getInput,
@@ -11,5 +12,6 @@ export {
     LifeCycle,
     Outputs,
     accumulate,
-    getFuel
+    getFuel,
+    getNotifyPointOfSale
 };

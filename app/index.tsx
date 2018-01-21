@@ -51,6 +51,7 @@ Promise.all(pLoadSounds).then((soundsBuffer: AudioBuffer[]) => {
         cSaleQuantityLCD,
         sBeep,
         sSaleComplete,
+        csClearSale,
         cValue
     } = pump();
 
@@ -92,6 +93,8 @@ Promise.all(pLoadSounds).then((soundsBuffer: AudioBuffer[]) => {
             cPriceLCDs={cPriceLCDs}
             sClicks={sClicks}
             cNozzles={cNozzles}
+            csClearSale={csClearSale}
+            sSaleComplete={sSaleComplete}
         />,
         document.getElementById("viewport"));
 });

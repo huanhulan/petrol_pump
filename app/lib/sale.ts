@@ -1,5 +1,5 @@
-import {Fuel} from '../types'
-class Sale {
+import {Fuel, saleInterface} from '../types'
+class Sale implements saleInterface {
     public fuel: Fuel;
     public price: number;
     public cost: number;

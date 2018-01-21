@@ -21,7 +21,7 @@ export default function (priceConfigs,
     });
     const [sNozzle1, sNozzle2, sNozzle3] = [cNozzle1, cNozzle2, cNozzle3].map(nozzle => Operational.updates(nozzle));
     const [cPrice1, cPrice2, cPrice3] = priceConfigs.map(conf => pricePropsFactory(conf));
-    const csClearSale: CellSink<Stream<Unit>> = new CellSink(new Stream<Unit>());
+    const csClearSale: CellSink<StreamSink<Unit>> = new CellSink(new StreamSink<Unit>());
     const sClearSale: Stream <Unit> = Cell.switchS(csClearSale);
     const sKeypad = new StreamSink<Keys>();
     const sFuelPulses = new StreamSink<number>();
@@ -34,6 +34,6 @@ export default function (priceConfigs,
         sFuelPulses,
         cCalibration,
         cPrice1, cPrice2, cPrice3,
-        sClearSale
+        sClearSale, csClearSale
     };
 }
