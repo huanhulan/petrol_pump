@@ -1,11 +1,9 @@
-import {Cell, Stream, Unit} from "sodiumjs";
+import {Cell} from "sodiumjs";
 import {Delivery, Fuel, IFillInterface, Optional, Speed} from "../types";
-import getFuel from "./fill";
 
 export default function getPreset(cPresetDollars: Cell<number>,
                                   fi: IFillInterface,
-                                  cFuelFlowing: Cell<Optional<Fuel>>,
-                                  cFillActive: Cell<boolean>) {
+                                  cFuelFlowing: Cell<Optional<Fuel>>) {
     const cSpeed: Cell<Speed> = cPresetDollars.lift4(fi.cPrice,
         fi.cDollarsDelivered,
         fi.cLitersDelivered,

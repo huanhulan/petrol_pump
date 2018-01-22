@@ -106,7 +106,7 @@ function pump() {
             cPrice,
             cLitersDelivered,
             cDollarsDelivered,
-        }, np.cFuelFlowing, np.cFillActive.map(o => !!o));
+        }, np.cFuelFlowing);
 
         cKeypadActive.loop(pr.cKeypadActive);
         sStrat.loop(np.sStart);
