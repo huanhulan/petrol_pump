@@ -60,4 +60,6 @@ yarn.lock
 # dotenv environment variables file
 .env
 
+#output directory
+dist
 
