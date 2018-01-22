@@ -1,11 +1,12 @@
-import {StreamSink, Cell, Transaction, Unit, StreamLoop} from 'sodiumjs';
+import {StreamSink, Cell, Transaction, Unit, StreamLoop, CellLoop} from 'sodiumjs';
 import {
     getInput,
     wireKeypad,
     LifeCycle,
     Outputs,
     getFuel,
-    getNotifyPointOfSale
+    getNotifyPointOfSale,
+    getPreset
 } from './frp';
 import {UpDown, Fuel, Delivery, Optional} from './types';
 import {getLCDStr} from './lib';
@@ -61,8 +62,6 @@ function pump() {
         const sStrat = new StreamLoop<Fuel>();
 
         // get inputs
-        const inputs = getInput(pricesConfigs, sClick1, sClick2, sClick3);
-
         const {
             cNozzle1, cNozzle2, cNozzle3,
             sNozzle1, sNozzle2, sNozzle3,
@@ -71,8 +70,9 @@ function pump() {
             cCalibration,
             cPrice1, cPrice2, cPrice3,
             sClearSale, csClearSale
-        } = inputs;
+        } = getInput(pricesConfigs, sClick1, sClick2, sClick3);
 
+        // get price configs
         const prices = [cPrice1, cPrice2, cPrice3].map((cPrice, index) => {
             const {name} = pricesConfigs[index];
             return {
@@ -80,11 +80,9 @@ function pump() {
                 name
             }
         });
+
         // get lifecycle.
         const lc = new LifeCycle(sNozzle1, sNozzle2, sNozzle3);
-
-        // get keypad
-        const ke = wireKeypad(sKeypad, sClearSale);
 
         // get fill
         const {cPrice, cLitersDelivered, cDollarsDelivered} = getFuel(
@@ -95,8 +93,21 @@ function pump() {
             sStrat
         );
 
+        // get keypad
+        const cKeypadActive = new CellLoop<boolean>();
+        const ke = wireKeypad(sKeypad, sClearSale, cKeypadActive);
+
         // get notify point
         const np = getNotifyPointOfSale(lc, sClearSale, {cPrice, cLitersDelivered, cDollarsDelivered});
+
+        // get presets
+        const pr = getPreset(ke.cValue, {
+            cPrice,
+            cLitersDelivered,
+            cDollarsDelivered
+        }, np.cFuelFlowing, np.cFillActive.map(o => !!o));
+
+        cKeypadActive.loop(pr.cKeypadActive);
         sStrat.loop(np.sStart);
 
         // get outputs
@@ -111,19 +122,16 @@ function pump() {
             sBeep,
             sSaleComplete
         } = new Outputs()
-            .setDelivery(np.cFuelFlowing.map(
-                of => of === Fuel.ONE ? Delivery.FAST1 :
-                    of === Fuel.TWO ? Delivery.FAST2 :
-                        of === Fuel.THREE ? Delivery.FAST3 :
-                            Delivery.OFF))
-            .setBeep(np.sBeep.orElse(ke.sBeep))
+            .setDelivery(pr.cDelivery)
             .setSaleComplete(np.sSaleComplete)
-            .setPresetLCD(ke.cValue.map(v => getLCDStr(v, 2)))
-            .setSaleCostLCD(cDollarsDelivered.map(v => getLCDStr(v, 2)))
-            .setSaleQuantityLCD(cLitersDelivered.map(v => getLCDStr(v, 2)))
             .setPriceLCD1(getPriceLCD(np.cFillActive, cPrice, Fuel.ONE, cPrice1, cPrice2, cPrice3))
             .setPriceLCD2(getPriceLCD(np.cFillActive, cPrice, Fuel.TWO, cPrice1, cPrice2, cPrice3))
-            .setPriceLCD3(getPriceLCD(np.cFillActive, cPrice, Fuel.THREE, cPrice1, cPrice2, cPrice3));
+            .setPriceLCD3(getPriceLCD(np.cFillActive, cPrice, Fuel.THREE, cPrice1, cPrice2, cPrice3))
+            .setBeep(np.sBeep.orElse(ke.sBeep))
+            .setPresetLCD(ke.cValue.map(v => getLCDStr(v, 2)))
+            .setSaleCostLCD(cDollarsDelivered.map(v => getLCDStr(v, 2)))
+            .setSaleQuantityLCD(cLitersDelivered.map(v => getLCDStr(v, 2)));
+
 
         const cValue = ke.cValue;
 

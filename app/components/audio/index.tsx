@@ -71,6 +71,9 @@ class Audio extends React.Component<IAudioProps, {}> {
         if (this.nodes[index] === null || this.nodes[index].buffer === null) {
             return;
         }
+        if (this.playingSource !== null) {
+            this.stop();
+        }
         this.nodes[index].start(0);
         this.playingSource = index;
     }

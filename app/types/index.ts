@@ -1,6 +1,8 @@
 import {Cell, CellLoop, CellSink, Stream, StreamSink, Unit} from "sodiumjs";
 type Optional<A> = A|null;
 
+enum Speed { FAST, SLOW, STOPPED }
+
 enum Delivery {
     OFF,
     SLOW1,
@@ -166,6 +168,7 @@ export {
     Keys,
     End,
     Phase,
+    Speed,
     IAudioProps,
     IPricePropsInterface,
     IPriceStateInterface,
