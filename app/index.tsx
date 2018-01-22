@@ -50,12 +50,13 @@ Promise.all(pLoadSounds).then((soundsBuffer: AudioBuffer[]) => {
         cSaleCostLCD,
         cSaleQuantityLCD,
         sBeep,
+        sStrat,
         sSaleComplete,
         csClearSale,
         cValue,
     } = pump();
 
-    (function getPulse() {
+    sStrat.listen(function getPulse() {
         const timer = setTimeout(() => {
             switch (cDelivery.sample()) {
                 case Delivery.FAST1:
@@ -76,7 +77,9 @@ Promise.all(pLoadSounds).then((soundsBuffer: AudioBuffer[]) => {
             clearTimeout(timer);
             getPulse();
         }, 200);
-    })();
+        sSaleComplete.listen(() => clearTimeout(timer));
+    });
+
     ReactModal.setAppElement("#viewport");
     ReactDOM.render(<App
             context={context}

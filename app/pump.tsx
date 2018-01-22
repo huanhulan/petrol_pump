@@ -153,6 +153,7 @@ function pump() {
             cSaleCostLCD,
             cSaleQuantityLCD,
             sBeep,
+            sStrat,
             sSaleComplete,
             cValue,
         };
