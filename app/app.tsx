@@ -8,7 +8,7 @@ import ModalContent from "./components/modal_content";
 import NozzlePanel from "./components/nozzle_panel";
 import PricePanel from "./components/price_panel";
 import * as style from "./style/index.scss";
-import {IAppPropsInterface, IAppStateInterface, Fuel, ISaleInterface} from "./types";
+import {Fuel, IAppPropsInterface, IAppStateInterface, ISaleInterface} from "./types";
 
 const crossPath = "M15.898,\
                                   4.045c-0.271-0.272-0.713-0.272-0.986,0l-4.71,\

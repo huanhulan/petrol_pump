@@ -43,11 +43,10 @@ export default function getPreset(cPresetDollars: Cell<number>,
                             : Delivery.OFF)
                 : Delivery.OFF;
     });
-    const cKeypadActive = cFuelFlowing.lift(cSpeed, (oFuel, speed) => {
-        return oFuel === null || (speed === Speed.FAST)
-    });
+    const cKeypadActive = cFuelFlowing.lift(cSpeed, (oFuel, speed) => oFuel === null || (speed === Speed.FAST));
+
     return {
         cDelivery,
-        cKeypadActive
-    }
+        cKeypadActive,
+    };
 }

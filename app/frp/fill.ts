@@ -1,5 +1,5 @@
 import {Cell, Stream, Unit} from "sodiumjs";
-import {IFillInterface, Fuel} from "../types";
+import {Fuel, IFillInterface} from "../types";
 import accumulatePulses from "./accumulatePulses";
 
 function capturePrice(sStart: Stream<Fuel>,

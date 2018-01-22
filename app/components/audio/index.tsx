@@ -1,6 +1,6 @@
 import * as React from "react";
 import {Cell, Operational} from "sodiumjs";
-import {IAudioProps, Delivery, Optional} from "../../types";
+import {Delivery, IAudioProps, Optional} from "../../types";
 
 function changes(b: Cell<any>) {
     return Operational.updates(b)

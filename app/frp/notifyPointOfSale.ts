@@ -1,6 +1,6 @@
 import {Cell, CellLoop, Stream, Unit} from "sodiumjs";
 import {Sale} from "../lib";
-import {End, IFillInterface, Fuel, Optional, Phase} from "../types";
+import {End, Fuel, IFillInterface, Optional, Phase} from "../types";
 import LifeCycle from "./lifeCycle";
 
 export default function getNotifyPointOfSale(lc: LifeCycle,
