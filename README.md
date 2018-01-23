@@ -9,6 +9,7 @@ Install [Node.js® and npm](https://nodejs.org/en/download/current/) if they are
 ## Installation
 
 ### via NPM
+
 ```bash
 $> git clone https://github.com/huanhulan/petrol_pump.git
 $> cd petrol_pump
@@ -16,6 +17,7 @@ $> npm install
 ```
 
 ### via Yarn
+
 ```bash
 $> git clone https://github.com/huanhulan/petrol_pump.git
 $> cd petrol_pump
@@ -24,4 +26,6 @@ $> yarn install
 
 ## How to use
 
-Run locally using the Webpack dev server: `npm start`
+Run locally using the Webpack dev server: `npm start` or visit it on [Github Pages](https://huanhulan.github.io/petrol_pump/).
+
+Please run is on a tablet or PC to get the best experience :D
