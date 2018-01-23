@@ -7,8 +7,7 @@ module.exports = function (cssLoaderOptions, sassLoaderOptions) {
 
         output: {
             filename: "bundle.js",
-            path: __dirname + "/../dist",
-            publicPath: "https://raw.githubusercontent.com/huanhulan/petrol_pump/master/dist/"
+            path: __dirname + "/../dist"
         },
 
         resolve: {

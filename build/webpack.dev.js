@@ -22,7 +22,11 @@ module.exports = merge(common(cssLoaderOptions, sassLoaderOptions), {
         compress: true,
         port: 3000
     },
-
+    output: {
+        filename: "bundle.js",
+        path: __dirname + "/../dist",
+        publicPath: "/dist/"
+    },
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
         new webpack.WatchIgnorePlugin([
