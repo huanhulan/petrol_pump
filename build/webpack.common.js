@@ -40,6 +40,7 @@ module.exports = function (cssLoaderOptions, sassLoaderOptions) {
                     loader: "file-loader",
                     options: {
                         name: "[hash].[ext]",
+                        outputPath: "assets/"
                     }
                 }, {
                     loader: "image-webpack-loader"
@@ -50,6 +51,7 @@ module.exports = function (cssLoaderOptions, sassLoaderOptions) {
                     loader: "file-loader",
                     options: {
                         name: "[hash].[ext]",
+                        outputPath: "assets/"
                     }
                 }]
             }, {
