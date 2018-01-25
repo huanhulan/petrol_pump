@@ -15,11 +15,12 @@ const cssLoaderOptions = {
 };
 
 const sassLoaderOptions = {};
+const env = 'production';
 
-module.exports = merge(common(cssLoaderOptions, sassLoaderOptions), {
+module.exports = merge(common(cssLoaderOptions, sassLoaderOptions, env), {
     output: {
-        filename: "bundle.[chunkhash].js",
-        publicPath: "https://raw.githubusercontent.com/huanhulan/petrol_pump/master/docs/"
+        publicPath: "/",
+        filename: "bundle.[chunkhash].js"
     },
     plugins: [
         new ExtractTextPlugin("stylesheets/main.[contenthash].css"),

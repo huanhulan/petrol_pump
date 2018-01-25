@@ -1,7 +1,7 @@
 const webpack = require("webpack");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
-module.exports = function (cssLoaderOptions, sassLoaderOptions) {
+module.exports = function (cssLoaderOptions, sassLoaderOptions, env) {
     return {
         entry: "./app/index.tsx",
         output: {
@@ -48,7 +48,10 @@ module.exports = function (cssLoaderOptions, sassLoaderOptions) {
                     loader: "file-loader",
                     options: {
                         name: "[hash].[ext]",
-                        outputPath: "assets/"
+                        outputPath: "/assets/",
+                        publicPath: env === "production"
+                            ? "https://raw.githubusercontent.com/huanhulan/petrol_pump/master/docs/"
+                            : '/docs/'
                     }
                 }]
             }, {

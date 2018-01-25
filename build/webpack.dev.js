@@ -17,7 +17,9 @@ const sassLoaderOptions = {
     sourceMap: true
 };
 
-module.exports = merge(common(cssLoaderOptions, sassLoaderOptions), {
+const env = 'development';
+
+module.exports = merge(common(cssLoaderOptions, sassLoaderOptions, env), {
     devServer: {
         // hotOnly: true,
         compress: true,
