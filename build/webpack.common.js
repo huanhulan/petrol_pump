@@ -4,12 +4,10 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 module.exports = function (cssLoaderOptions, sassLoaderOptions) {
     return {
         entry: "./app/index.tsx",
-
         output: {
-            filename: "bundle.js",
-            path: __dirname + "/../dist"
+            path: __dirname + "/../docs",
+            publicPath: "/docs/"
         },
-
         resolve: {
             extensions: [".ts", ".tsx", ".js", ".json", "png", "wav"]
         },
@@ -61,9 +59,6 @@ module.exports = function (cssLoaderOptions, sassLoaderOptions) {
                     loader: "json-loader"
                 }]
             }]
-        },
-        plugins: [
-            new ExtractTextPlugin("stylesheets/main.css")
-        ]
+        }
     }
 };

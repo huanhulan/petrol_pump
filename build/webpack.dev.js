@@ -1,6 +1,7 @@
 const common = require("./webpack.common.js");
 const merge = require("webpack-merge");
 const webpack = require('webpack');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 const cssLoaderOptions = {
     camelCase: true,
@@ -23,11 +24,10 @@ module.exports = merge(common(cssLoaderOptions, sassLoaderOptions), {
         port: 3000
     },
     output: {
-        filename: "bundle.js",
-        path: __dirname + "/../dist",
-        publicPath: "/dist/"
+        filename: "bundle.js"
     },
     plugins: [
+        new ExtractTextPlugin("stylesheets/main.css"),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.WatchIgnorePlugin([
             /css\.d\.ts$/
