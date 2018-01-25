@@ -24,7 +24,7 @@ export default function Keypad(props: IKeypadProps) {
                     Keys.CLEAR,
                 ].map((key, index) => (
                         <button className={style.button} onClick={onClickFactory(key)} key={key}>
-                            {key === Keys.CLEAR ? Keys[10] : key}
+                            <span className={style.text}>{key === Keys.CLEAR ? Keys[10] : key}</span>
                         </button>
                     ),
                 )
