@@ -11,7 +11,7 @@ module.exports = function (cssLoaderOptions, sassLoaderOptions) {
         },
 
         resolve: {
-            extensions: [".ts", ".tsx", ".js", ".json", "png", "wav"]
+            extensions: [".ts", ".tsx", ".js", ".json", ".png", ".wav"]
         },
 
         module: {
