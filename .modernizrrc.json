@@ -3,6 +3,6 @@
   "feature-detects": [
     "test/css/cssgrid",
     "test/css/flexbox",
-    "test/css/cssvwunit"
+    "test/css/vhunit"
   ]
 }

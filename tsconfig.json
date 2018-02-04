@@ -27,5 +27,8 @@
   ],
   "include": [
     "./app/*"
+  ],
+  "files": [
+    ".modernizrrc.json.d.ts"
   ]
 }
