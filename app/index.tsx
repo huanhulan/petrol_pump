@@ -1,13 +1,13 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import * as ReactModal from "react-modal";
+import * as modernizrConfig from "./../.modernizrrc.json";
 import App from "./app";
 import * as  beepClip from "./assets/sounds/beep.wav";
 import * as fastRumble from "./assets/sounds/fast.wav";
 import * as slowRumble from "./assets/sounds/slow.wav";
 import pump from "./pump";
 import {Delivery} from "./types";
-import * as modernizrConfig from "./../.modernizrrc.json";
 
 const modernizr = modernizrConfig;
 const $app = document.getElementById("viewport");
@@ -17,7 +17,7 @@ window.onload = () => {
         return;
     }
     if (!modernizr.cssvhunit || !modernizr.cssgrid || !modernizr.flexbox) {
-        $app.innerHTML = 'please use modern browsers like Chrome to get the best user experience.'
+        $app.innerHTML = "please use modern browsers like Chrome to get the best user experience.";
         return;
     }
     // audio settings
