@@ -21,7 +21,7 @@ $> npm install
 ```bash
 $> git clone https://github.com/huanhulan/petrol_pump.git
 $> cd petrol_pump
-$> yarn install
+$> yarn
 ```
 
 ## How to use
