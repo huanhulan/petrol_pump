@@ -28,4 +28,4 @@ $> yarn install
 
 Run locally using the Webpack dev server: `npm start` or visit it on [Github Pages](https://huanhulan.github.io/petrol_pump/).
 
-Please run is on a tablet or PC to get the best experience :D
+Please run this on a tablet or PC to get the best experience :D
