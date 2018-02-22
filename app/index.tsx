@@ -10,14 +10,26 @@ import pump from "./pump";
 import {Delivery} from "./types";
 
 const modernizr = modernizrConfig;
+const features = ["cssvhunit", "cssgrid", "flexbox", "webaudio", "promises"];
+const supports = features.map(f => modernizr[f]);
 const $app = document.getElementById("viewport");
+// fuel pulses
+const fastPulse = 40;
+const slowPulse = 2;
 
 window.onload = () => {
     if (!$app) {
         return;
     }
-    if (!modernizr.cssvhunit || !modernizr.cssgrid || !modernizr.flexbox) {
-        $app.innerHTML = "please use modern browsers like Chrome to get the best user experience.";
+    if (supports.filter(support => !support).length) {
+        const notSupports = supports.reduce((tupple, support, index) => {
+            if (!support) {
+                tupple.push(features[index]);
+            }
+            return tupple;
+        }, []).join(", ");
+        $app.innerHTML = `Your browser does not support: ${notSupports}.`
+            + "Please use modern browsers like Chrome to get the best user experience.";
         return;
     }
     // audio settings
@@ -39,9 +51,6 @@ window.onload = () => {
             })(soundUrl.toString()); // Hack: for typescript type check
         });
     });
-    // fuel pulses
-    const fastPulse = 40;
-    const slowPulse = 2;
 
     // main
     Promise.all(pLoadSounds).then((soundsBuffer: AudioBuffer[]) => {
@@ -50,12 +59,8 @@ window.onload = () => {
             cNozzles,
             cPriceLCDs,
             prices,
-            // sNozzle1,
-            // sNozzle2,
-            // sNozzle3,
             sKeypad,
             sFuelPulses,
-            cCalibration,
             sClearSale,
             cDelivery,
             cPresetLCD,

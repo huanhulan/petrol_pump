@@ -73,11 +73,11 @@ function pump() {
         } = getInput(pricesConfigs, sClick1, sClick2, sClick3);
 
         // get price configs
-        const prices = [cPrice1, cPrice2, cPrice3].map((price, index) => {
+        const prices = [cPrice1, cPrice2, cPrice3].map((innerCPrice, index) => {
             const {name} = pricesConfigs[index];
 
             return {
-                cPrice: price,
+                cPrice: innerCPrice,
                 name,
             };
         });

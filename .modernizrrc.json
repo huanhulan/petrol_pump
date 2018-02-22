@@ -3,6 +3,8 @@
   "feature-detects": [
     "test/css/cssgrid",
     "test/css/flexbox",
-    "test/css/vhunit"
+    "test/css/vhunit",
+    "test/audio/webaudio",
+    "test/es6/promises"
   ]
 }

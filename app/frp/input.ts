@@ -18,7 +18,8 @@ export default function getInputs(priceConfigs,
             .hold(UpDown.DOWN));
         return cNozzle;
     });
-    const [sNozzle1, sNozzle2, sNozzle3] = [cNozzle1, cNozzle2, cNozzle3].map(nozzle => Operational.updates(nozzle));
+    const [sNozzle1, sNozzle2, sNozzle3] = [cNozzle1, cNozzle2, cNozzle3]
+        .map(innerCNozzle => Operational.updates(innerCNozzle));
     const [cPrice1, cPrice2, cPrice3] = priceConfigs.map(conf => pricePropsFactory(conf));
     const csClearSale: CellSink<StreamSink<Unit>> = new CellSink(new StreamSink<Unit>());
     const sClearSale: Stream <Unit> = Cell.switchS(csClearSale);
