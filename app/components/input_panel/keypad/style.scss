@@ -1,11 +1,5 @@
 @import "./../../../style/constants";
 
-:root {
-  --tablet-width: 768;
-  --L-laptop-width: 1448;
-  --font-size: 16;
-}
-
 .keypad {
   width: 84%;
   margin-left: 8%;
@@ -16,7 +10,8 @@
   grid-gap: $padding/3 $padding/3;
 
   .button {
-    font-size: calc(100vw / var(--tablet-width) * var(--font-size));
+    /** calculated by: font-size / tablete-width * 100 **/
+    font-size: 2vw;
     font-weight: bolder;
     padding: 0;
     background: $keypad-background;
@@ -26,7 +21,6 @@
     min-width: 2*$line-height*$font-size;
 
     .text {
-      display: block;
       width: 100%;
       height: 100%;
       position: absolute;
