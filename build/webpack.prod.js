@@ -14,9 +14,6 @@ const cssLoaderOptions = {
 const sassLoaderOptions = {};
 
 module.exports = merge(common(cssLoaderOptions, sassLoaderOptions), {
-    output: {
-        publicPath: "https://raw.githubusercontent.com/huanhulan/petrol_pump/master/dist/"
-    },
     plugins: [
         new CleanWebpackPlugin(['dist'], {
             root: __dirname

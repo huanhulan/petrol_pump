@@ -1,5 +1,7 @@
 const webpack = require("webpack");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const os = require("os");
 
 module.exports = function (cssLoaderOptions, sassLoaderOptions) {
     return {
@@ -25,7 +27,8 @@ module.exports = function (cssLoaderOptions, sassLoaderOptions) {
                         loader: "typings-for-css-modules-loader",
                         options: cssLoaderOptions
                     }, {
-                        loader: "postcss-loader", options: {
+                        loader: "postcss-loader",
+                        options: {
                             sourceMap: true
                         }
                     }, {
@@ -34,27 +37,16 @@ module.exports = function (cssLoaderOptions, sassLoaderOptions) {
                     }]
                 })
             }, {
-                test: /\.(png)$/i,
+                test: /\.(wav|png)$/,
                 use: [{
-                    loader: "file-loader",
+                    loader: 'url-loader',
                     options: {
-                        name: "[hash].[ext]",
-                        outputPath: "assets/"
-                    }
-                }, {
-                    loader: "image-webpack-loader"
-                }]
-            }, {
-                test: /\.(wav)$/i,
-                use: [{
-                    loader: "file-loader",
-                    options: {
-                        name: "[hash].[ext]",
-                        outputPath: "assets/"
+                        limit: 1073741824
                     }
                 }]
             }, {
                 test: /\.modernizrrc\.json$/,
+                type: 'javascript/auto',
                 use: [{
                     loader: "modernizr-loader"
                 }, {
@@ -64,6 +56,11 @@ module.exports = function (cssLoaderOptions, sassLoaderOptions) {
         },
         plugins: [
             new ExtractTextPlugin("stylesheets/main.css")
-        ]
+        ],
+        optimization: {
+            minimizer: [new UglifyJsPlugin({
+                parallel: os.cpus().length - 1
+            })]
+        }
     }
 };
