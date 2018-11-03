@@ -48,6 +48,8 @@
     "commitizen": "^2.9.6",
     "css-object-loader": "^0.0.7",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "mini-css-extract-plugin": "^0.4.4",
+    "optimize-css-assets-webpack-plugin": "^5.0.1",
     "progress-bar-webpack-plugin": "^1.11.0",
     "speed-measure-webpack-plugin": "^1.2.3",
     "typings-for-css-modules-loader": "^1.7.0",

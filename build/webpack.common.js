@@ -3,16 +3,13 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 module.exports = function (cssLoaderOptions, sassLoaderOptions) {
     return {
         entry: "./app/index.tsx",
-
         output: {
             filename: "bundle.js",
             path: __dirname + "/../dist"
         },
-
         resolve: {
             extensions: [".ts", ".tsx", ".js", ".json", ".png", ".wav"]
         },
-
         module: {
             rules: [{
                 test: /\.tsx?$/,
