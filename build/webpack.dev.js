@@ -1,10 +1,10 @@
-const common = require("./webpack.common.js");
 const merge = require("webpack-merge");
 const webpack = require('webpack');
 const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const DashboardPlugin = require('webpack-dashboard/plugin');
 const path = require('path');
+const common = require("./webpack.common.js");
 
 const cssLoaderOptions = {
     camelCase: true,
@@ -25,7 +25,7 @@ const smp = new SpeedMeasurePlugin();
 module.exports = smp.wrap(merge(common(cssLoaderOptions, sassLoaderOptions), {
     mode: "development",
     devServer: {
-        // hotOnly: true,
+        hotOnly: true,
         compress: true,
         port: 3000
     },
@@ -39,11 +39,8 @@ module.exports = smp.wrap(merge(common(cssLoaderOptions, sassLoaderOptions), {
         new webpack.WatchIgnorePlugin([
             /css\.d\.ts$/
         ]),
-        new webpack.SourceMapDevToolPlugin({
-            filename: null, // inline sourcemap
-            test: /\.(tsx?|js)($|\?)/i // case-insensitive match for ts/js files
-        }),
         new ProgressBarPlugin(),
         new DashboardPlugin(),
-    ]
+    ],
+    devtool: "inline-source-map"
 }));
