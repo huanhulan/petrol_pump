@@ -2,6 +2,8 @@ const CleanWebpackPlugin = require("clean-webpack-plugin");
 const merge = require("webpack-merge");
 const webpack = require('webpack');
 const WebpackDeepScopeAnalysisPlugin = require('webpack-deep-scope-plugin').default;
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const os = require("os");
 const common = require("./webpack.common.js");
 
 const cssLoaderOptions = {
@@ -16,6 +18,7 @@ const cssLoaderOptions = {
 const sassLoaderOptions = {};
 
 module.exports = merge(common(cssLoaderOptions, sassLoaderOptions), {
+    mode: "production",
     plugins: [
         new WebpackDeepScopeAnalysisPlugin(),
         new CleanWebpackPlugin(['dist'], {
@@ -26,5 +29,11 @@ module.exports = merge(common(cssLoaderOptions, sassLoaderOptions), {
                 "NODE_ENV": JSON.stringify("production")
             }
         }),
-    ]
+    ],
+    optimization: {
+        minimizer: [new UglifyJsPlugin({
+            parallel: os.cpus().length - 1,
+            extractComments: true,
+        })]
+    }
 });

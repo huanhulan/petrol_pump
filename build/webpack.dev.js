@@ -4,6 +4,7 @@ const webpack = require('webpack');
 const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const DashboardPlugin = require('webpack-dashboard/plugin');
+const path = require('path');
 
 const cssLoaderOptions = {
     camelCase: true,
@@ -22,6 +23,7 @@ const sassLoaderOptions = {
 const smp = new SpeedMeasurePlugin();
 
 module.exports = smp.wrap(merge(common(cssLoaderOptions, sassLoaderOptions), {
+    mode: "development",
     devServer: {
         // hotOnly: true,
         compress: true,
@@ -29,7 +31,7 @@ module.exports = smp.wrap(merge(common(cssLoaderOptions, sassLoaderOptions), {
     },
     output: {
         filename: "bundle.js",
-        path: __dirname + "/../dist",
+        path: path.join(__dirname, "/../dist"),
         publicPath: "/dist/"
     },
     plugins: [

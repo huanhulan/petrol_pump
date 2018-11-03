@@ -1,7 +1,4 @@
-const webpack = require("webpack");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const os = require("os");
 
 module.exports = function (cssLoaderOptions, sassLoaderOptions) {
     return {
@@ -56,11 +53,6 @@ module.exports = function (cssLoaderOptions, sassLoaderOptions) {
         },
         plugins: [
             new ExtractTextPlugin("stylesheets/main.css")
-        ],
-        optimization: {
-            minimizer: [new UglifyJsPlugin({
-                parallel: os.cpus().length - 1
-            })]
-        }
+        ]
     }
 };
